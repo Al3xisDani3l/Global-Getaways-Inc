@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GG.Api</name>
+    </assembly>
+    <members>
+        <member name="T:GG.Api.Automapper.AutomapperInitializer">
+            <summary>
+            Configura a Automapper de manera automatica
+            </summary>
+        </member>
+        <member name="M:GG.Api.Automapper.AutomapperInitializer.#ctor(GG.Core.AutomapperProfile)">
+            <summary>
+            Configura a Automapper de manera automatica
+            </summary>
+        </member>
+        <member name="T:GG.Api.Controllers.GenericController`2">
+            <summary> 
+            Clase generica base que contiene toda la logica de interaccion de las entidades del negocio de la API GG.
+            Su implementacion con un tipo concreto debe ser establecidad para su correcto funcionamiento.
+            </summary>
+            <typeparam Nombre="TEntity">Entidad de negocio, esta debe ser una clase y poder ser instanciada, ademas implementar la interfaz <see cref="T:GG.Core.IEntity"/>.</typeparam>
+        </member>
+        <member name="T:GG.Api.Controllers.UsersController">
+            <summary>
+            Administra toda la logica de los usuarios
+            </summary>
+        </member>
+    </members>
+</doc>

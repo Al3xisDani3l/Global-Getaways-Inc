@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LPH.Infrastructure.Data;
+using GG.Infrastructure.Data;
 using Npgsql;
-using LPH.Core.Entities;
-using LPH.Core.Services;
+using GG.Core.Entities;
+using GG.Core.Services;
 using System.Security.Cryptography;
-using LPH.Core.Validations;
+using GG.Core.Validations;
 using Newtonsoft.Json;
 
 namespace TestConnection
@@ -63,7 +63,7 @@ namespace TestConnection
             
             //NpgsqlConnectionStringBuilder connstring = new NpgsqlConnectionStringBuilder();
 
-            ////"Server:.;Port:5432;Database:lphdatabase;User Id:postgres;Password:Lph12345;"
+            ////"Server:.;Port:5432;Database:GGdatabase;User Id:postgres;Password:GG12345;"
             ////Server=ec2-34-193-113-223.compute-1.amazonaws.com;Port=5432;Database=depsjd3oarplor;User Id=yhuwxgiqefjtkd;Password=ff0cc7ca638abcddb64a97750050e1ab910a97b6ac1ffca2a4155fceebb1cbcd;sslmode=Require;Trust Server Certificate=true;
             //connstring.Database = "depsjd3oarplor";
             //connstring.Password = "ff0cc7ca638abcddb64a97750050e1ab910a97b6ac1ffca2a4155fceebb1cbcd";
@@ -74,7 +74,7 @@ namespace TestConnection
 
 
 
-            //LPHDBContext conn = new LPHDBContext();
+            //GGDBContext conn = new GGDBContext();
            
 
             //try
@@ -83,13 +83,13 @@ namespace TestConnection
 
             //    Usuario administer = new Usuario();
 
-            //    administer.Email = @"lph_api@outlook.com";
+            //    administer.Email = @"GG_api@outlook.com";
             //    administer.Telefono = "6562538679";
-            //    administer.Nombre = "lphadmin";
+            //    administer.Nombre = "GGadmin";
             //    administer.FechaNacimiento = DateTime.Now;
             //    administer.Apellido = "Principal";
-            //    administer.Password = Hash("Lph12345");
-            //    administer.Role = LPH.Core.Enumerations.RoleType.Administrator;
+            //    administer.Password = Hash("GG12345");
+            //    administer.Role = GG.Core.Enumerations.RoleType.Administrator;
             //    administer.GoogleUUID = null;
             //    administer.Suscrito = false;
                
