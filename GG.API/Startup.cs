@@ -19,8 +19,13 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Design;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using GG.Core;
 using GG.Api.Automapper;
-using GG.Database;
-
+using GG.Data;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using IdentityServer4;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace GG.Api
 {
@@ -36,7 +41,7 @@ namespace GG.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-
+           
 
             services.AddAutoMapper(auto =>
             {
@@ -61,16 +66,13 @@ namespace GG.Api
 
             });
 
-       
+            services.AddDbContext<ApplicationDbContext>(options => { options.UseNpgsql(Configuration.GetConnectionString("GGDB_postgres")); options.UseLazyLoadingProxies(); options.EnableDetailedErrors(); }) ;
 
-            services.AddDbContext<GGContext>(options => { options.UseNpgsql(Configuration.GetConnectionString("GGDB_postgres")); options.UseLazyLoadingProxies(); options.EnableDetailedErrors(); }) ;
-          //services.AddDbContext<GGDBContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("GGDB")); options.UseLazyLoadingProxies(); });
-
-            services.Configure<PasswordOptions>(conf => Configuration.GetSection("PasswordOptions").Bind(conf));
+            services.Configure<GG.Infrastructure.Options.PasswordOptions>(conf => Configuration.GetSection("PasswordOptions").Bind(conf));
 
             #region Entidades de dominio
 
-            services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
+            services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
             services.AddTransient(typeof(IAccountRepository), typeof(AccountRepository));         
             services.AddSingleton<IPasswordService, PasswordService>();
 
@@ -105,6 +107,36 @@ namespace GG.Api
 
 
                 };
+            });
+
+
+
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+               
+            }
+            ).AddCookie("idsrv.external", options =>
+            {
+                options.LoginPath = "/account/signin-google";
+            })
+                .AddGoogle("Google",options =>
+            {
+                options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                options.ClientId = Configuration["GoogleOptions:client_id"];
+                options.ClientSecret = Configuration["GoogleOptions:client_secret"];
+                options.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+                options.ClaimActions.MapJsonKey(ClaimTypes.OtherPhone, "otherphone");
+                options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+                options.ClaimActions.MapJsonKey("urn:google:locale", "locale", "string");
+                options.ClaimActions.MapJsonKey("urn:google:MobilePhone", "mobilephone", "string");
+                options.ClaimActions.MapJsonKey("urn:google:gender", "gender", "string");
+                options.ClaimActions.MapJsonKey("urn:google:birthday", "birthday", "date");
+                options.ClaimActions.MapJsonKey("urn:google:accesstoken", "AccessToken", "string");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Gender, "gender");
+                options.SaveTokens = true;
+
             });
 
 
@@ -149,7 +181,7 @@ namespace GG.Api
 
             app.Run(async context =>
             {
-                context.Response.Redirect("swagger");
+                context.Response.Redirect("/swagger");
             });
         }
 
@@ -164,7 +196,7 @@ namespace GG.Api
                .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())
             {
-                using (var context = serviceScope.ServiceProvider.GetService<GGContext>())
+                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
                 {
 
                     //var result = context.Database.CanConnect();
@@ -188,7 +220,7 @@ namespace GG.Api
                .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())
             {
-                using (var context = serviceScope.ServiceProvider.GetService<GGContext>())
+                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
                 {
 
                     var password = serviceScope.ServiceProvider.GetService<IPasswordService>();
@@ -196,13 +228,13 @@ namespace GG.Api
                     PrivateUser administer = new PrivateUser();
 
                     administer.Email = configuration["Administer:email"].ToString();
-                    administer.Phone = configuration["Administer:telefono"].ToString();
-                    administer.Name = configuration["Administer:nombre"].ToString(); ;
-                    administer.Birthday = DateTime.Parse(configuration["Administer:fechaNacimiento"].ToString());
-                    administer.Lastname = configuration["Administer:apellido"].ToString();
-                    administer.Password = password.Hash(configuration["Administer:password"].ToString());
-                    administer.Role = RoleType.Administrator;
-                    administer.GoogleUUID = null;
+                    //administer.Phone = configuration["Administer:telefono"].ToString();
+                    //administer.Name = configuration["Administer:nombre"].ToString(); ;
+                    //administer.Birthday = DateTime.Parse(configuration["Administer:fechaNacimiento"].ToString());
+                    //administer.Lastname = configuration["Administer:apellido"].ToString();
+                    //administer.Password = password.Hash(configuration["Administer:password"].ToString());
+                    //administer.Role = RoleType.Administrator;
+                    administer.UsernameGoogle = null;
                    
 
                     if (context.Users.FirstOrDefaultAsync(u => u.Email == administer.Email) == null)

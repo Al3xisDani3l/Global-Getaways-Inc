@@ -14,7 +14,7 @@
             Configura a Automapper de manera automatica
             </summary>
         </member>
-        <member name="T:GG.Api.Controllers.GenericController`2">
+        <member name="T:GG.Api.Controllers.GenericController`3">
             <summary> 
             Clase generica base que contiene toda la logica de interaccion de las entidades del negocio de la API GG.
             Su implementacion con un tipo concreto debe ser establecidad para su correcto funcionamiento.

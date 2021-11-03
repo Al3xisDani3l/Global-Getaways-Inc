@@ -9,7 +9,11 @@ namespace GG.Core
     {
         Task<PrivateUser> GetLoginByCredentials(UserLogin userLogin);
 
+        Task<PrivateUser> GetLoginByGoogle(UserLogin userLogin);
+
         Task<PrivateUser> RegisterUser(UserSignUp security);
+
+
 
     }
 }

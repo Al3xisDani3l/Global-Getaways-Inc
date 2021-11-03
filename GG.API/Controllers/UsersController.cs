@@ -16,11 +16,11 @@ namespace GG.Api.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : GenericController<User, PrivateUser>
+    public class UsersController : GenericController<User, PrivateUser,string>
     {
         
 
-        public UsersController(IRepository<PrivateUser> repository, IMapper mapper) : base(repository, mapper)
+        public UsersController(IRepository<PrivateUser,string> repository, IMapper mapper) : base(repository, mapper)
         {
             
         }

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GG.Core
 {
     [Table("comentarios")]
-    [Index(nameof(Id), IsUnique = true)]
+    [Microsoft.EntityFrameworkCore.Index(nameof(Id), IsUnique = true)]
     public class OrdenComment : BaseEntity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

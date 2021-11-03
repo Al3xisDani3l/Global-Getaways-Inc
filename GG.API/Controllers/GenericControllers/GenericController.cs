@@ -20,14 +20,14 @@ namespace GG.Api.Controllers
     [Authorize(Roles = "Administrador")]
     [Route("api/[controller]")]
     [ApiController]
-    public class GenericController<TEntity, TPrivateEntity> : ControllerBase where TEntity : class, IEntity, new() where TPrivateEntity : class, IEntity, new()
+    public class GenericController<TEntity, TPrivateEntity,TKey> : ControllerBase where TEntity : class, IEntity<TKey>, new() where TPrivateEntity : class, IEntity<TKey>, new() where TKey : IEquatable<TKey>
     {
 
-        internal readonly IRepository<TPrivateEntity> _repository;
+        internal readonly IRepository<TPrivateEntity,TKey> _repository;
 
         internal readonly IMapper _mapper;
 
-        public GenericController(IRepository<TPrivateEntity> repository, IMapper mapper)
+        public GenericController(IRepository<TPrivateEntity,TKey> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -47,9 +47,9 @@ namespace GG.Api.Controllers
 
         }
         [HttpGet("{id}")]
-        public virtual async Task<ActionResult<TEntity>> Get(int id)
+        public virtual async Task<ActionResult<TEntity>> Get(TKey id)
         {
-            var result = await _repository.FindAsync(e => e.Id == id);
+            var result = await _repository.FindAsync(e => e.Id.Equals(id));
             if (result is not null)
             {
                 var resultMapper = _mapper.Map<TEntity>(result);
@@ -69,10 +69,10 @@ namespace GG.Api.Controllers
             return NotFound();
         }
         [HttpPut("{id}")]
-        public virtual async Task<ActionResult<TEntity>> Put(int id, TEntity element)
+        public virtual async Task<ActionResult<TEntity>> Put(TKey id, TEntity element)
         {
             //Obtenemos los datos desde el repositorio
-            var result = await _repository.FindAsync(e => e.Id == id);
+            var result = await _repository.FindAsync(e => e.Equals(id));
 
             if (!ModelState.IsValid)
             {
@@ -130,7 +130,7 @@ namespace GG.Api.Controllers
         public virtual async Task<ActionResult<TEntity>> Patch(int id, JsonPatchDocument<TEntity> element)
         {
 
-            var result = await _repository.FindAsync(e => e.Id == id);
+            var result = await _repository.FindAsync(e => e.Equals(id));
 
             if (element is not null)
             {
@@ -216,9 +216,9 @@ namespace GG.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public virtual async Task<ActionResult<bool>> Delete(int id)
+        public virtual async Task<ActionResult<bool>> Delete(TKey id)
         {
-            var result = await _repository.FindAsync(e => e.Id == id);
+            var result = await _repository.FindAsync(e => e.Equals(id));
 
             if (result is not null)
             {

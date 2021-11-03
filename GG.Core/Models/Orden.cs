@@ -1,6 +1,5 @@
 ﻿
 
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +10,7 @@ using System.Linq;
 namespace GG.Core
 {
     [Table("ordenes")]
-    [Index(nameof(Id), IsUnique = true)]
+
     public class Orden : BaseEntity
     {
         public Orden()

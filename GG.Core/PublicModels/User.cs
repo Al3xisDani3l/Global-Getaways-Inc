@@ -4,11 +4,11 @@ using System;
 
 namespace GG.Core
 {
-    public class User : BaseEntity
+    public class User : BaseIdentityUser
     {
 
 
-        public int Id { get; set; }
+        
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Telefono { get; set; }

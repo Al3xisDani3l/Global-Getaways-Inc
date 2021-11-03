@@ -55,9 +55,9 @@ namespace GG.Api.Filters
                 return;
             }
 
-            if (_repository is IRepository<PrivateUser>)
+            if (_repository is IRepository<PrivateUser,string>)
             {
-                var _userRepository = _repository as IRepository<PrivateUser>;
+                var _userRepository = _repository as IRepository<PrivateUser,string>;
 
 
 
@@ -95,9 +95,9 @@ namespace GG.Api.Filters
 
             }
 
-            if (_repository is IRepository<Orden>)
+            if (_repository is IRepository<Orden,int>)
             {
-                var _ordenRepository = _repository as IRepository<Orden>;
+                var _ordenRepository = _repository as IRepository<Orden,int>;
                 if (!string.IsNullOrEmpty(idencabezado))
                 {
 
@@ -142,9 +142,9 @@ namespace GG.Api.Filters
 
             }
 
-            if (_repository is IRepository<OrdenComment>)
+            if (_repository is IRepository<OrdenComment,int>)
             {
-                var _ordenRepository = _repository as IRepository<OrdenComment>;
+                var _ordenRepository = _repository as IRepository<OrdenComment,int>;
                 if (!string.IsNullOrEmpty(idencabezado))
                 {
 
@@ -203,21 +203,21 @@ namespace GG.Api.Filters
     [System.AttributeUsage(AttributeTargets.Method)]
     public class OwnerOrdenAttribute : OwnerOrAdministerAttribute
     {
-        public OwnerOrdenAttribute() : base(typeof(IRepository<Orden>))
+        public OwnerOrdenAttribute() : base(typeof(IRepository<Orden,int>))
         {
         }
     }
 
     public class OwnerUserAttribute : OwnerOrAdministerAttribute
     {
-        public OwnerUserAttribute() : base(typeof(IRepository<PrivateUser>))
+        public OwnerUserAttribute() : base(typeof(IRepository<PrivateUser,string>))
         {
         }
     }
 
     public class OwnerCommentAttribute : OwnerOrAdministerAttribute
     {
-        public OwnerCommentAttribute() : base(typeof(IRepository<OrdenComment>))
+        public OwnerCommentAttribute() : base(typeof(IRepository<OrdenComment,int>))
         {
         }
     }

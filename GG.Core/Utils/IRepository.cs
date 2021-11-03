@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GG.Core
 {
-    public interface IRepository<T> where T : class, IEntity, new()
+    public interface IRepository<T,Tkey> where T : class, IEntity<Tkey>, new() where Tkey : IEquatable<Tkey>
     {
 
         Task<T> UpdateAsync(T entity);
@@ -22,7 +22,7 @@ namespace GG.Core
         Task<ICollection<T>> GetAllAsync();
         Task<ICollection<TResult>> GetAllAsync<TResult>(Expression<Func<T, TResult>> selector);
 
-        void DetachLocal(T entity, int id);
+        void DetachLocal(T entity, Tkey id);
 
 
         T Update(T entity);

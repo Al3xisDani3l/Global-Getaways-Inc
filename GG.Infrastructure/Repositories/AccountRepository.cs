@@ -1,17 +1,20 @@
 ﻿
 using GG.Core;
-using GG.Database;
+using GG.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using System;
+
 namespace GG.Infrastructure.Repositories
 {
-    public class AccountRepository : RepositoryBase<PrivateUser>, IAccountRepository
+    public class AccountRepository : RepositoryBase<PrivateUser,string>, IAccountRepository
     {
 
 
          readonly IMapper _mapper;
-        public AccountRepository(GGContext context,IMapper mapper ) : base(context)
+       
+        public AccountRepository(ApplicationDbContext context,IMapper mapper ) : base(context)
         {
             _mapper = mapper;
         }
@@ -19,10 +22,61 @@ namespace GG.Infrastructure.Repositories
 
         public async Task<PrivateUser> GetLoginByCredentials(UserLogin login)
         {
+            if (login is null)
+            {
+                throw new ArgumentNullException(nameof(login));
+            }
+
             var list = await base.GetAllAsync();
-            var result = list.FirstOrDefault(x => x.Email == login.Email);
+            PrivateUser result = null;
+
+            if (login.Email is not null)
+            {
+                 result = list.FirstOrDefault(x => x.Email == login.Email);
+            }
+            else if( login.Phone is not null)
+            {
+                 result = list.FirstOrDefault(x => x.PhoneNumber == login.Phone);
+            }
+            
+           
 
             return result;
+        }
+
+        public async Task<PrivateUser> GetLoginByGoogle(UserLogin login)
+        {
+            if (login is not null)
+            {
+              var users =  await this.GetAllAsync();
+
+                var userbyemail = users.FirstOrDefault(u => u.Email == login.Email);
+                var userbyGoogleId = users.FirstOrDefault(u => u.UsernameGoogle == login.GoogleId);
+
+                if (userbyGoogleId is not null)
+                {
+                    return userbyGoogleId;
+                }
+
+                if (userbyemail is not null)
+                {
+                    if (string.IsNullOrEmpty(userbyemail.UsernameGoogle))
+                    {
+                        userbyemail.UsernameGoogle = login.GoogleId;
+                        var result = await UpdateAsync(userbyemail);
+
+                        return result;
+                    }
+                    return userbyemail;
+                }
+                return null;
+
+                
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(login));
+            }
         }
 
         public async Task<PrivateUser> RegisterUser(UserSignUp security)

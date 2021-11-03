@@ -22,11 +22,33 @@ nationality varchar not null
 
 )
 
+create table Packages(
+Id int identity(1,1) primary key not null,
+
+)
+
+Create table Places(
+Id int identity(1,1) primary key not null,
+
+)
+
+
+create table Reviews(
+Id int identity(1,1) primary key not null,
+UserId int not null,
+PlaceId int not null,
+Rating int check ( Rating >= 1 and Rating <=5),
+constraint fk_pu foreign key (PlaceId) references Places(id),
+constraint fk_ru foreign key (userId) references Users(id)
+)
+
+
 Create table Keywords(
 Id int identity(1,1) primary key not null,
-UserId int not null foreign key, 
-Words varchar not null 
-
+UserId int not null , 
+Words varchar not null ,
+constraint fk_ku foreign key (UserId) references Users(Id)
+)
 
 
 

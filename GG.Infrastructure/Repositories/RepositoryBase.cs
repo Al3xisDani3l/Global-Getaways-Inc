@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GG.Infrastructure.Repositories
 {
-    public class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity :  class, IEntity, new()
+    public class RepositoryBase<TEntity,TKey> : IRepository<TEntity,TKey> where TEntity :  class, IEntity<TKey>, new() where TKey : IEquatable<TKey>
     {
 
         protected internal readonly DbContext _context;
@@ -23,7 +23,7 @@ namespace GG.Infrastructure.Repositories
         internal string _nameT;
 
 
-        public RepositoryBase(GG.Database.GGContext context)
+        public RepositoryBase(GG.Data.ApplicationDbContext context)
         {
             _context = context;
             _entities = _context.Set<TEntity>();
@@ -189,9 +189,9 @@ namespace GG.Infrastructure.Repositories
             }
         }
 
-        public void DetachLocal(TEntity entity,int id)
+        public void DetachLocal(TEntity entity,TKey id)
         {
-            var detachedEntity = _entities.FirstOrDefault(en => en.Id == id);
+            var detachedEntity = _entities.FirstOrDefault(en => en.Id.Equals(id));
 
             if (detachedEntity != null)
             {
@@ -214,7 +214,7 @@ namespace GG.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        bool IRepository<TEntity>.Delete(TEntity entity)
+        bool IRepository<TEntity,TKey>.Delete(TEntity entity)
         {
             throw new NotImplementedException();
         }
