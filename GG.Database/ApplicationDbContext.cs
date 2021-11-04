@@ -16,6 +16,15 @@ namespace GG.Data
 
         }
 
+        public virtual DbSet<PrivateTravelPackage> TravelPackages { get; set; }
+
+        public virtual DbSet<PrivateRating> Ratings { get; set; }
+
+        public virtual DbSet<LikedPackage> LikedPackages { get; set; }
+
+
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

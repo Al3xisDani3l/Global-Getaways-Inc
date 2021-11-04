@@ -31,4 +31,8 @@
     <ProjectReference Include="..\GG.Infrastructure\GG.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ExternalSource\" />
+  </ItemGroup>
+
 </Project>
