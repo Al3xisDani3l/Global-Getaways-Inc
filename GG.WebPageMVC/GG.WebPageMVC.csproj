@@ -7,6 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\css\style.css" />
+    <Content Remove="wwwroot\imagenes\espana.jpg" />
+    <Content Remove="wwwroot\imagenes\francia.jpg" />
+    <Content Remove="wwwroot\imagenes\japon.jpg" />
+    <Content Remove="wwwroot\imagenes\juarez.jpg" />
+    <Content Remove="wwwroot\imagenes\mazatlan.jpg" />
+    <Content Remove="wwwroot\imagenes\Mejores-Playas-de-Cancún.jpg" />
+    <Content Remove="wwwroot\imagenes\noruega.jpg" />
+    <Content Remove="wwwroot\imagenes\tailandia.jpg" />
+    <Content Remove="wwwroot\js\script.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.11" />
@@ -33,6 +46,19 @@
 
   <ItemGroup>
     <Folder Include="ExternalSource\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\imagenes\espana.jpg" />
+    <None Include="wwwroot\imagenes\francia.jpg" />
+    <None Include="wwwroot\imagenes\japon.jpg" />
+    <None Include="wwwroot\imagenes\juarez.jpg" />
+    <None Include="wwwroot\imagenes\mazatlan.jpg" />
+    <None Include="wwwroot\imagenes\Mejores-Playas-de-Cancún.jpg" />
+    <None Include="wwwroot\imagenes\noruega.jpg" />
+    <None Include="wwwroot\imagenes\tailandia.jpg" />
+    <None Include="wwwroot\js\script.js" />
   </ItemGroup>
 
 </Project>
