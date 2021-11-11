@@ -15,6 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Google;
+using SendGrid;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using GG.Infrastructure;
 
 namespace GG.WebPageMVC
 {
@@ -33,6 +37,12 @@ namespace GG.WebPageMVC
             services.Configure<GG.Infrastructure.Options.PasswordOptions>(conf => Configuration.GetSection("PasswordOptions").Bind(conf));
 
             services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
+            //añadimos los servicios de sendgrid con el patron singleton
+            services.AddSingleton(new SendGridClient(Configuration["sendgridkey"]));
+
+            //Añadimos el servicio de mensajeria
+            services.AddTransient<IEmailSender, EmailSender>();
+
 
             services.AddAutoMapper(auto =>
             {
@@ -59,6 +69,28 @@ namespace GG.WebPageMVC
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            //agregamos los logins externos de la app
+            services.AddAuthentication()
+                .AddFacebook("Facebook",options =>
+                {
+                    options.ClientId = Configuration["FacebookOptions:client_id"];
+                    options.ClientSecret = Configuration["FacebookOptions:client_secret"];
+                })
+               .AddLinkedIn("Linkedin",options =>
+               {
+                   options.ClientId = Configuration["LinkedinOptions:client_id"];
+                   options.ClientSecret = Configuration["LinkedinOptions:client_secret"];
+               })
+                 .AddGoogle("Google", options => {
+
+                   
+                     options.ClientId = Configuration["GoogleOptions:client_id"];
+                     options.ClientSecret = Configuration["GoogleOptions:client_secret"];
+                     options.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+                     options.SaveTokens = true;
+
+                 }); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

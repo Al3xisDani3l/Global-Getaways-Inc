@@ -8,7 +8,7 @@ namespace GG.Core
 {
     public class PrivateTravelPackage: BaseEntity, IRemarkable
     {
-        [StringLength(255)]
+        [StringLength(512)]
         public string Review { get; set; }
 
         public string PathingImage { get; set; }

@@ -2,11 +2,91 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Login";
+    Layout = "/Areas/Identity/Pages/_Layout.cshtml"; 
 }
 
 <h1>@ViewData["Title"]</h1>
-<div class="row">
+
+<div class="container">
+    <div class="row main-content color">
+        <div class="col-12 col-sm-12">
+            <div class="col-12">
+                <img class="rounded mx-auto d-block img" src="~/imagenes/logotipo.png" alt="login">
+
+    
+            </div>
+            <div class="col-10">
+                <form class="form" id="account" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Correo:</label>
+                        <input asp-for="Input.Email" class="form-control" id="Correo" aria-describedby="emailHelp">
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Contraseña:</label>
+                        <input asp-for="Input.Password" class="form-control" id="Contrasenia">
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="bbtn btn-primary btn-lg">Entrar</button>
+                    <div class="form-group">
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">¿olvidaste tu contraseña?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <h5 class="text-center h5">¿Quieres iniciar sesión con tus redes?</h5>
+            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div class="row text-center">
+                    <div class="col-12">
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+                            if (provider.Name == "Facebook")
+                            {
+                                <a name="provider" type="submit" href="./ExternalLogins" id="" value="@provider.Name" class="btn" role="button">
+                                    <img src="~/signin/redes sociales/facebook.svg" alt="" width="30px" height="30px">
+                                </a>
+                            }
+                            if (provider.Name == "Google")
+                            {
+                                <a name="provider" type="submit" href="./ExternalLogins" id="" value="@provider.Name" class="btn" role="button">
+                                    <img src="~/signin/redes sociales/google.svg" alt="" width="30px" height="30px">
+
+                                </a>
+                            }
+                            if (provider.Name == "Linkedin")
+                            {
+                                <a name="provider" type="submit" href="./ExternalLogins" id="" value="@provider.Name" class="btn" role="button">
+                                    <img src="~/signin/redes sociales/linkedin.svg" alt="" width="30px" height="30px">
+                                </a>
+                            }
+
+
+                        }
+
+
+
+                    </div>
+                </div>
+             </form>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="row">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
@@ -69,6 +149,10 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
+                                    if (provider.Name == "Google")
+                                    {
+
+                                    }
                                     <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                                 }
                             </p>
@@ -78,7 +162,7 @@
             }
         </section>
     </div>
-</div>
+</div>*@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

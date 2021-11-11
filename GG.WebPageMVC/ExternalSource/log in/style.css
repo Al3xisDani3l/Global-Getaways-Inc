@@ -1,0 +1,40 @@
+.main-content{
+	width: 60%;
+	border-radius: 20px;
+	box-shadow: 0 5px 5px rgba(0,0,0,.4);
+	margin: 5em auto;
+	display: flex;
+    padding: 50px 0;
+}
+
+.form{
+    padding-left: 100px;
+}
+
+.img{
+    width: 40%;
+    height: 40%;
+}
+.bbtn{
+    background-color: rgb(166,111,3);
+    border: 2px solid rgb(166,111,3);
+}
+
+.bbtn:hover{
+    background-color: rgb(166,111,3);
+    border: 2px solid rgb(166,111,3);
+}
+
+.color{
+    background-color: rgba(210,211,213,.9);
+}
+
+body{
+    background-attachment: fixed;
+    background-image: url(fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.container{
+    padding: 50px;
+}
