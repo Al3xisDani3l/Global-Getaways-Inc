@@ -11,7 +11,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using CsvHelper;
+using System.IO;
+using System.Globalization;
+using CsvHelper.Configuration;
 
 namespace GG.WebPageMVC
 {
@@ -25,15 +28,44 @@ namespace GG.WebPageMVC
                 using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
                 {
 
-                    var travels = context.TravelPackages.ToList();
+                    //  var travels = context.TravelPackages.ToList();
 
-                    if (travels is not null)
-                    {
-                        if (travels.Count == 0)
-                        {
+                    //if (travels is not null)
+                    //{
+                    //    if (travels.Count == 0)
+                    //    {
+
+                    var pathBase = Environment.CurrentDirectory;
+
+                            var csvPath = Path.Combine(pathBase, "Metodos datos.csv");
+
+                    var config = new CsvConfiguration(CultureInfo.InvariantCulture) { MissingFieldFound = null, HeaderValidated = null };
+
+                            using (StreamReader reader = new StreamReader(@"C:\Users\alexi\source\repos\global getaways inc\GG.WebPageMVC\wwwroot\Metodos datos.csv") )
+                            {
+                        using (var csvreader = new CsvReader(reader, config) )
+                                {
+
+                                    var recors = csvreader.GetRecords<PrivateTravelPackage>();
+
+                                    if (recors is not null)
+                                    {
+                                       var list = recors.ToList();
+                                    }
+
+                                    context.SaveChanges();
 
 
-                        }
+                                }
+                                
+
+
+
+                        //    }
+
+                            
+
+                        //}
                     }
 
 

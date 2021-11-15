@@ -271,6 +271,7 @@ header .icons #menu-bars {
 }
 
 .popular .box-container .box {
+  width: 35rem;
   padding: 2.5rem;
   background: #fff;
   border-radius: 0.5rem;

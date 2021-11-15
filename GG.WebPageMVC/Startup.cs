@@ -108,6 +108,7 @@ namespace GG.WebPageMVC
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                app.AddFirstData();
             }
             else
             {
@@ -130,6 +131,9 @@ namespace GG.WebPageMVC
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+           
         }
+
     }
 }

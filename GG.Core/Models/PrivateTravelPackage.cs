@@ -22,6 +22,8 @@ namespace GG.Core
         [Range(0,1000000)]
         public decimal Price { get; set; }
 
+        public double Punctuation { get; set; }
+
 
         public virtual ICollection<PrivateRating> Ratings { get; set; }
 
