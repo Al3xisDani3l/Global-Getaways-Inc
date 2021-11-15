@@ -7,7 +7,7 @@ namespace GG.Core
     public class User : BaseIdentityUser
     {
 
-
+        
         
         public string Nombre { get; set; }
         public string Apellido { get; set; }

@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using SendGrid;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using GG.Infrastructure;
+using GG.WebPageMVC.Areas.Identity.Pages.Account;
 
 namespace GG.WebPageMVC
 {
@@ -91,6 +92,13 @@ namespace GG.WebPageMVC
                      options.SaveTokens = true;
 
                  }); ;
+
+
+            services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
+
+
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

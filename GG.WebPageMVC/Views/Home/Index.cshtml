@@ -1,33 +1,83 @@
-﻿@{
+﻿
+@using GG.Core;
+@using System.Collections.Generic;
+
+@{
     ViewData["Title"] = "Home";
 }
 
-
+@{
+    List<PrivateTravelPackage> travelPackages = (List<PrivateTravelPackage>)ViewBag.Travels;
+}
 <form action="" id="search-form">
-    <input type="search" placeholder="search here..." name="" id="search-box">
+    <input type="search" placeholder="Buscar aqui..." name="" id="search-box">
     <label for="search-box" class="fas fa-search"></label>
     <i class="fas fa-times" id="close"></i>
 </form>
+<!--SEARCH SECTION ENDS-->
+<!-- HOME SECTION -->
 
+<section class="home" id="home">
 
+    <div class="swiper-container home-slider">
 
+        <div class="swiper-wrapper wrapper">
 
-<!-- home section ends -->
-<!-- dishes section starts  -->
+            <div class="swiper-slide slide">
+                <div class="content">
+                    <span>Netherlands</span>
+                    <h3>Amsterdam</h3>
+                    <p>Amsterdam is located in the Western Netherlands, in the province of North Holland, the capital of which is not Amsterdam, but rather Haarlem. </p>
+                </div>
+                <div class="image">
+                    <img src="imagenes/imagenes/amsterdam.jpg" alt="">
+                </div>
+            </div>
 
-<section class="dishes" id="dishes">
+            <div class="swiper-slide slide">
+                <div class="content">
+                    <span>Istanbul, Turkey</span>
+                    <h3>Hagia Sophia</h3>
+                    <p>Hagia Sophia was the seat of the Patriarchate of Constantinople and a principal setting for Byzantine imperial ceremonies, such as coronations.</p>
+                </div>
+                <div class="image">
+                    <img src="imagenes/imagenes/turkish.jpg" alt="">
+                </div>
+            </div>
 
-    <h3 class="sub-heading">Viajes</h3>
-    <h1 class="heading">Los viajes mas vistos:</h1>
+            <div class="swiper-slide slide">
+                <div class="content">
+                    <span>London, England</span>
+                    <h3> Buckingham Palace</h3>
+                    <p>Buckingham Palace has served as the official London residence of the UK's sovereigns since 1837 and today is the administrative headquarters of the Monarch.</p>
+                </div>
+                <div class="image">
+                    <img src="imagenes/imagenes/palacio-de-buckingham-londres-inglaterra.jpg" alt="">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+
+    </div>
+
+</section>
+
+<!-- HOME SECTION ENDS -->
+<!-- POPULAR SECTION  -->
+
+<section class="popular" id="popular">
+
+    <h3 class="sub-heading"> Nuestros Viajes </h3>
+    <h1 class="heading"> Lo Más Popular </h1>
 
     <div class="box-container">
-
         <div class="box">
-
             <a href="#" class="fas fa-heart"></a>
             <a href="#" class="fas fa-eye"></a>
-            <img src="~/~/imagenes/Mejores-Playas-de-Cancún.jpg" alt="">
-            <h3>cancún</h3>
+            <img src="imagenes/imagenes/mazatlan.jpg" alt="">
+            <h3>Mazatlán</h3>
             <div class="stars">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
@@ -35,15 +85,18 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
             </div>
-            <span>$15.99</span>
-            <a href="#" class="btn">Agregar al carrito</a>
+            <span>$650 dlls</span>
+            <a href="#" class="btn">Añadir al Carrito</a>
         </div>
 
-        <div class="box">
+
+        @foreach(var item in travelPackages)
+        {
+             <div class="box">
             <a href="#" class="fas fa-heart"></a>
             <a href="#" class="fas fa-eye"></a>
-            <img src="~/~/imagenes/mazatlan.jpg" alt="">
-            <h3>Mazatlan</h3>
+            <img src="@item.PathingImage" alt="">
+            <h3>@item.Country</h3>
             <div class="stars">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
@@ -51,15 +104,16 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
             </div>
-            <span>$15.99</span>
-            <a href="#" class="btn">Agregar al carrito</a>
+            <span>$@item.Price dlls</span>
+            <a href="#" class="btn">Añadir al Carrito</a>
         </div>
-
+        }
+        
         <div class="box">
             <a href="#" class="fas fa-heart"></a>
             <a href="#" class="fas fa-eye"></a>
-            <img src="~/imagenes/espana.jpg" alt="">
-            <h3>España</h3>
+            <img src="imagenes/imagenes/Mejores-Playas-de-Cancún.jpg" alt="">
+            <h3>Cancún</h3>
             <div class="stars">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
@@ -67,14 +121,46 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
             </div>
-            <span>$15.99</span>
-            <a href="#" class="btn">Agregar al carrito</a>
+            <span>$800 dlls</span>
+            <a href="#" class="btn">Añadir al Carrito</a>
         </div>
 
         <div class="box">
             <a href="#" class="fas fa-heart"></a>
             <a href="#" class="fas fa-eye"></a>
-            <img src="~/imagenes/noruega.jpg" alt="">
+            <img src="imagenes/imagenes/Sydney Harbour Bridge.jpg" alt="">
+            <h3>Sydney Harbour Bridge</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span>$1200 dlls</span>
+            <a href="#" class="btn">Añadir al Carrito</a>
+        </div>
+
+        <div class="box">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-eye"></a>
+            <img src="imagenes/imagenes/tailandia.jpg" alt="">
+            <h3>Thailandia</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span>$2,400 dlls</span>
+            <a href="#" class="btn">Añadir al Carrito</a>
+        </div>
+
+        <div class="box">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-eye"></a>
+            <img src="imagenes/imagenes/noruega.jpg" alt="">
             <h3>Noruega</h3>
             <div class="stars">
                 <i class="fas fa-star"></i>
@@ -83,21 +169,78 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
             </div>
-            <span>$15.99</span>
-            <a href="#" class="btn">Agregar al carrito</a>
+            <span>$2,250 dlls</span>
+            <a href="#" class="btn">Añadir al Carrito</a>
         </div>
-    </div>
-</section>
-<section class="menu" id="menu">
 
-    <h3 class="sub-heading">Paquetes</h3>
-    <h1 class="heading">Paquetes: </h1>
+        <div class="box">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-eye"></a>
+            <img src="imagenes/imagenes/Machu Picchu.jpg" alt="">
+            <h3>Machu Picchu</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span>$1250 Dlls</span>
+            <a href="#" class="btn">Añadir al Carrito</a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- POPULAR SECTION ENDS -->
+<!-- ABOUT SECTION -->
+
+<section class="about" id="about">
+
+    <h3 class="sub-heading"> Acerca de Nosotros </h3>
+    <h1 class="heading"> ¿Por qué escoger Global Getaways Inc? </h1>
+
+    <div class="row">
+
+        <div class="image">
+            <img src="imagenes/imagenes/GG_logo.png" alt="">
+        </div>
+
+        <div class="content">
+            <h3>La mejor agencia de viajes</h3>
+            <p>¿Estás cansado de la rutina? ¿Buscas un lugar para quedarte y descansar con tu familia? Estás en el lugar correcto! Nuestro agencia de viajes ofrece paquetes históricos y de lujo para ti. Combina el estilo y las comodidades modernas con los valores tradicionales.</p>
+            <p>Todos los viajes están están equipados para que tu experiencia sea única e inigualable. ¡Experimenta nuestra cálida hospitalidad, alta calidad de servicio y comodidad excepcional! ¡Has una reserva para las vacaciones de tus sueños hoy!</p>
+            <div class="icons-container">
+                <div class="icons">
+                    <span>Increíble Experiencia</span>
+                </div>
+                <div class="icons">
+                    <span>Pago Fácil</span>
+                </div>
+                <div class="icons">
+                    <span>Servicio 24/7</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ABOUT SECTION ENDS -->
+<!-- PACKAGES SECTION  -->
+
+<section class="paquetes" id="paquetes">
+
+    <h3 class="sub-heading"> Nuestros Paquetes </h3>
+    <h1 class="heading"> Paquetes del mes </h1>
 
     <div class="box-container">
 
         <div class="box">
             <div class="image">
-                <img src="~/imagenes/japon.jpg" alt="">
+                <img src="imagenes/imagenes/Puerto_Vallarta.jpg" alt="">
                 <a href="#" class="fas fa-heart"></a>
             </div>
             <div class="content">
@@ -108,16 +251,18 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
-                <h3>Paquete a japón:</h3>
-                <p>¿Te gustaría ir a Japón?</p>
-                <a href="#" class="btn">Ver más</a>
-                <span class="price">$12.99</span>
+                <h3>Puerto Vallarta</h3>
+                <p>
+                    Este paquete incluye: Vuelo en Volaris. Alojamiento en Flamingo Vallarta Hotel & Marina. Traslado Privado.
+                </p>
+                <a href="#" class="btn">Añadir al Carrito</a>
+                <span class="price">$250 dlls</span>
             </div>
         </div>
 
         <div class="box">
             <div class="image">
-                <img src="~/imagenes/francia.jpg" alt="">
+                <img src="imagenes/imagenes/niagara_falls.jpg" alt="">
                 <a href="#" class="fas fa-heart"></a>
             </div>
             <div class="content">
@@ -128,16 +273,16 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
-                <h3>Paquete A Francia:</h3>
-                <p>¿Te gustaria ir a Francia?</p>
-                <a href="#" class="btn">Ver Más</a>
-                <span class="price">$12.99</span>
+                <h3>Niagara Falls</h3>
+                <p>Este paquete incluye: Vuelo directo. Alojamiento en Motel 6 Niagara Falls. Transporte incluido.</p>
+                <a href="#" class="btn">Añadir al Carrito</a>
+                <span class="price">$1300 dlls</span>
             </div>
         </div>
 
         <div class="box">
             <div class="image">
-                <img src="~/imagenes/tailandia.jpg" alt="">
+                <img src="imagenes/imagenes/rusia__1280x720.jpg" alt="">
                 <a href="#" class="fas fa-heart"></a>
             </div>
             <div class="content">
@@ -148,16 +293,16 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
-                <h3>tailandia</h3>
-                <p>¿te gustaria ir a tailandia?</p>
-                <a href="#" class="btn">Agregar al carrito</a>
-                <span class="price">$12.99</span>
+                <h3>Rusia</h3>
+                <p>Este paquete incluye: Retro Moscow on Kurskaya. Vuelo con escalas. Tour incluido al centro de la ciudad</p>
+                <a href="#" class="btn">Añadir al Carrito</a>
+                <span class="price">$1750 dlls</span>
             </div>
         </div>
 
         <div class="box">
             <div class="image">
-                <img src="~/imagenes/juarez.jpg" alt="">
+                <img src="imagenes/imagenes/suecia.jpg" alt="">
                 <a href="#" class="fas fa-heart"></a>
             </div>
             <div class="content">
@@ -168,22 +313,124 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
-                <h3>Paquete a juaréz</h3>
-                <p>¿Te gustaria conocer juaréz?.</p>
-                <a href="#" class="btn">Agregar al carrito</a>
-                <span class="price">$12.99</span>
+                <h3>Suecia</h3>
+                <p>Este paquete incluye: Vuelo con escalas. Hotel en el centro de la ciudad. Desayuno incluido.</p>
+                <a href="#" class="btn">Añadir al Carrito</a>
+                <span class="price">$1700 dlls</span>
             </div>
         </div>
 
+        <div class="box">
+            <div class="image">
+                <img src="imagenes/imagenes/Alemania.jpg" alt="">
+                <a href="#" class="fas fa-heart"></a>
+            </div>
+            <div class="content">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <h3>Alemania</h3>
+                <p>Este paquete incluye: Vuelo redondo con escala. Hotel centrico. Transporte a las actividades.</p>
+                <a href="#" class="btn">Añadir al Carrito</a>
+                <span class="price">$1800 dlls</span>
+            </div>
+        </div>
 
+        <div class="box">
+            <div class="image">
+                <img src="imagenes/imagenes/amsterdam.jpg" alt="">
+                <a href="#" class="fas fa-heart"></a>
+            </div>
+            <div class="content">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <h3>Amsterdam</h3>
+                <p>Este paquete incluye: vuelo directo. Alojamiento en hotel centrico. Transporte privado. Desayunos incluidos.</p>
+                <a href="#" class="btn">Añadir al Carrito</a>
+                <span class="price">$1650 dlls</span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="imagenes/imagenes/china.jpeg" alt="">
+                <a href="#" class="fas fa-heart"></a>
+            </div>
+            <div class="content">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <h3>China</h3>
+                <p>Este paquete incluye: Tour personalizado. Vuelo con escala. Hotel en buena zona. Transporte</p>
+                <a href="#" class="btn">Añadir al Carrito</a>
+                <span class="price">$2500 dlls </span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="imagenes/imagenes/francia.jpg" alt="">
+                <a href="#" class="fas fa-heart"></a>
+            </div>
+            <div class="content">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <h3>Hotel Derby Eiffe</h3>
+                <p>Este paquete incluye: Vuelo con escalas. Hotel Derby Eiffel. Transporte incluido a lugares centricos.</p>
+                <a href="#" class="btn">Añadir al Carrito</a>
+                <span class="price">$1130 Dlls</span>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="imagenes/imagenes/italy.jpg" alt="">
+                <a href="#" class="fas fa-heart"></a>
+            </div>
+            <div class="content">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <h3>Italia</h3>
+                <p>Vuelo con escalas. Hospedaje en Novotel Roma La Rustica. Transporte del aeropuerto al hotel incluido. </p>
+                <a href="#" class="btn">Añadir al Carrito</a>
+                <span class="price">$1300 Dlls</span>
+            </div>
+        </div>
 
     </div>
 
 </section>
+
+<!-- PACKAGES SECTION ENDS -->
+<!-- REVIEW SECTION  -->
+
 <section class="review" id="review">
 
-    <h3 class="sub-heading"> Comentarios de los usuarios. </h3>
-    <h1 class="heading"> ¿Que es lo que dicen? </h1>
+    <h3 class="sub-heading"> Reseñas de nuestros clientes </h3>
+    <h1 class="heading"> Sus opiniones </h1>
 
     <div class="swiper-container review-slider">
 
@@ -192,9 +439,9 @@
             <div class="swiper-slide slide">
                 <i class="fas fa-quote-right"></i>
                 <div class="user">
-                    <img src="images/pic-1.png" alt="">
+                    <img src="imagenes/clients/Alexis.jpg" alt="">
                     <div class="user-info">
-                        <h3>john deo</h3>
+                        <h3>Alexis Hernández</h3>
                         <div class="stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -204,15 +451,15 @@
                         </div>
                     </div>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
+                <p>Sin duda una experiencia inigualable. Recomendado ampliamente, sin duda la mejor agencia de viajes. El trato fue excelente, programaré mi próximo viaje en esta agencia.</p>
             </div>
 
             <div class="swiper-slide slide">
                 <i class="fas fa-quote-right"></i>
                 <div class="user">
-                    <img src="images/pic-2.png" alt="">
+                    <img src="imagenes/clients/Emi.jpg" alt="">
                     <div class="user-info">
-                        <h3>john deo</h3>
+                        <h3>Emiliano Burrola</h3>
                         <div class="stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -222,15 +469,15 @@
                         </div>
                     </div>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
+                <p>Excelente servicio, desde los vuelos hasta la estancia en el hotel. Recomiendo esta agencia, además su servicio al cliente es excelente. Todo en tiempo y forma. Gracias a todo el equipo.</p>
             </div>
 
             <div class="swiper-slide slide">
                 <i class="fas fa-quote-right"></i>
                 <div class="user">
-                    <img src="images/pic-3.png" alt="">
+                    <img src="imagenes/clients/Fernando.jpg" alt="">
                     <div class="user-info">
-                        <h3>john deo</h3>
+                        <h3>Fernando Sotelo</h3>
                         <div class="stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -240,25 +487,7 @@
                         </div>
                     </div>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
-            </div>
-
-            <div class="swiper-slide slide">
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <img src="images/pic-4.png" alt="">
-                    <div class="user-info">
-                        <h3>john deo</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis laborum aspernatur quibusdam. Ipsum, magni.</p>
+                <p>Estoy totalmente satisfecho con el servicio brindado por la agencia. Las mejores recomendaciones para mis viajes. Definitivamente volveré a contratar un paquete con ellos.</p>
             </div>
 
         </div>
@@ -267,62 +496,4 @@
 
 </section>
 
-<!-- review section ends -->
-<!-- order section starts  -->
-
-<section class="order" id="order">
-
-    <h3 class="sub-heading"> order now </h3>
-    <h1 class="heading"> free and fast </h1>
-
-    <form action="">
-
-        <div class="inputBox">
-            <div class="input">
-                <span>your name</span>
-                <input type="text" placeholder="enter your name">
-            </div>
-            <div class="input">
-                <span>your number</span>
-                <input type="number" placeholder="enter your number">
-            </div>
-        </div>
-        <div class="inputBox">
-            <div class="input">
-                <span>your order</span>
-                <input type="text" placeholder="enter food name">
-            </div>
-            <div class="input">
-                <span>additional food</span>
-                <input type="test" placeholder="extra with food">
-            </div>
-        </div>
-        <div class="inputBox">
-            <div class="input">
-                <span>how musch</span>
-                <input type="number" placeholder="how many orders">
-            </div>
-            <div class="input">
-                <span>date and time</span>
-                <input type="datetime-local">
-            </div>
-        </div>
-        <div class="inputBox">
-            <div class="input">
-                <span>your address</span>
-                <textarea name="" placeholder="enter your address" id="" cols="30" rows="10"></textarea>
-            </div>
-            <div class="input">
-                <span>your message</span>
-                <textarea name="" placeholder="enter your message" id="" cols="30" rows="10"></textarea>
-            </div>
-        </div>
-
-        <input type="submit" value="order now" class="btn">
-
-    </form>
-
-</section>
-
-<!-- order section ends -->
-<!-- footer section starts  -->
+<!-- REVIEW SECTION ENDS -->

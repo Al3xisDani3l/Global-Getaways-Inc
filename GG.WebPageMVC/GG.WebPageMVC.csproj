@@ -1,30 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>aspnet-GG.WebPageMVC-10D4AEDE-1B1E-4C99-8178-D8D9B76EA35A</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Remove="wwwroot\css\style.css" />
-    <Content Remove="wwwroot\imagenes\espana.jpg" />
-    <Content Remove="wwwroot\imagenes\francia.jpg" />
-    <Content Remove="wwwroot\imagenes\japon.jpg" />
-    <Content Remove="wwwroot\imagenes\juarez.jpg" />
-    <Content Remove="wwwroot\imagenes\logotipo.png" />
-    <Content Remove="wwwroot\imagenes\mazatlan.jpg" />
-    <Content Remove="wwwroot\imagenes\Mejores-Playas-de-Cancún.jpg" />
-    <Content Remove="wwwroot\imagenes\noruega.jpg" />
-    <Content Remove="wwwroot\imagenes\tailandia.jpg" />
     <Content Remove="wwwroot\js\script.js" />
-    <Content Remove="wwwroot\signin\fondo.jpg" />
-    <Content Remove="wwwroot\signin\redes sociales\facebook.svg" />
-    <Content Remove="wwwroot\signin\redes sociales\google.svg" />
-    <Content Remove="wwwroot\signin\redes sociales\instagram.svg" />
-    <Content Remove="wwwroot\signin\redes sociales\linkedin.svg" />
-    <Content Remove="wwwroot\signin\redes sociales\twitter.svg" />
-    <Content Remove="wwwroot\signin\style.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,7 +44,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\css\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="wwwroot\imagenes\espana.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -76,14 +62,38 @@
     <None Include="wwwroot\imagenes\Mejores-Playas-de-Cancún.jpg" />
     <None Include="wwwroot\imagenes\noruega.jpg" />
     <None Include="wwwroot\imagenes\tailandia.jpg" />
-    <None Include="wwwroot\js\script.js" />
-    <None Include="wwwroot\signin\fondo.jpg" />
-    <None Include="wwwroot\signin\redes sociales\facebook.svg" />
-    <None Include="wwwroot\signin\redes sociales\google.svg" />
-    <None Include="wwwroot\signin\redes sociales\instagram.svg" />
-    <None Include="wwwroot\signin\redes sociales\linkedin.svg" />
-    <None Include="wwwroot\signin\redes sociales\twitter.svg" />
-    <None Include="wwwroot\signin\style.css" />
+    <None Include="wwwroot\js\script.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\redes sociales\facebook.svg" />
+    <None Include="wwwroot\redes sociales\google.svg" />
+    <None Include="wwwroot\redes sociales\instagram.svg" />
+    <None Include="wwwroot\redes sociales\linkedin.svg" />
+    <None Include="wwwroot\redes sociales\twitter.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\custom\loginstyle.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\custom\script.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\custom\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\site.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\logotipo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Metodos datos.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\signin\loginstyle.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

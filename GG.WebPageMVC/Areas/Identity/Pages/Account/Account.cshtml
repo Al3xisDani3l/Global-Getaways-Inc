@@ -1,0 +1,122 @@
+﻿@page
+@model GG.WebPageMVC.Areas.Identity.Pages.Account.AccountModel
+@{
+
+    Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="blueBg">
+        <div class="box signin">
+            <h2>¿Uno de nosotros?</h2>
+            <p>¿Ya tienes una cuenta?</p>
+            <p>Inicia sesión ¡Te extrañamos!</p>
+            <button class="signinBtn">Login</button>
+        </div>
+        <div class="box signup">
+            <h2>¿Eres Nuevo?</h2>
+            <p>¡Descubre una gran cantidad </p>
+            <p>de nuevas oportunidades!</p>
+            <button class="signupBtn">Registrar</button>
+        </div>
+    </div>
+
+    <div class="formBx">
+        <div class="form signinForm">
+            <form id="account" asp-page-handler="Login" method="post">
+                <h3>Iniciar Sesión</h3>
+                <input asp-for="InputLogin.LEmail" type="text" placeholder="Email">
+                <input asp-for="InputLogin.LPassword" type="password" placeholder="Password">
+                <input type="submit" value="Login">
+                <a asp-page="./ForgotPassword" class="forgot">Olvidé mi contraseña</a>
+            </form>
+            <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div class="social-media">
+
+
+                    @foreach (var provider in Model.ExternalLogins)
+                    {
+                        if (provider.Name == "Facebook")
+                        {
+                            <button type="submit" value="@provider.Name"><img src="~/signin/redes sociales/facebook.png"></button>
+                        }
+                        if (provider.Name == "Google")
+                        {
+                            <button type="submit" value="@provider.Name"><img src="~/signin/redes sociales/gooooogle.png"></button>
+                        }
+                        if (provider.Name == "Linkedin")
+                        {
+                            <button type="submit" value="@provider.Name"><img src="~/signin/redes sociales/linkedin.png"></button>
+                        }
+                        if (provider.Name == "Instagram")
+                        {
+                            <button type="submit" value="@provider.Name"><img src="~/signin/redes sociales/instagram.png"></button>
+                        }
+
+
+                    }
+
+
+                </div>
+            </form>
+        </div>
+
+
+        <div class="form signupForm">
+            <form asp-page-handler="Register" method="post">
+                <h3>Registrarse</h3>
+                <input asp-for="InputRegister.RName" type="text" placeholder="Name">
+                <input asp-for="InputRegister.REmail" type"="text" placeholder="Email Address">
+                <input asp-for="InputRegister.RPassword" type="password" placeholder="Password">
+                <input asp-for="InputRegister.RConfirmPassword" type="password" placeholder="Confirm Password">
+                <input type="submit" value="Register">
+            </form>
+            <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div class="social-media">
+
+
+                    @foreach (var provider in Model.ExternalLogins)
+                    {
+                        if (provider.Name == "Facebook")
+                        {
+                            <button type="submit" value="@provider.Name"><img src="~/signin/redes sociales/facebook.png"></button>
+                        }
+                        if (provider.Name == "Google")
+                        {
+                            <button type="submit" value="@provider.Name"><img src="~/signin/redes sociales/gooooogle.png"></button>
+                        }
+                        if (provider.Name == "Linkedin")
+                        {
+                            <button type="submit" value="@provider.Name"><img src="~/signin/redes sociales/linkedin.png"></button>
+                        }
+                        if (provider.Name == "Instagram")
+                        {
+                            <button type="submit" value="@provider.Name"><img src="~/signin/redes sociales/instagram.png"></button>
+                        }
+
+
+                    }
+
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const signinBtn=document.querySelector('.signinBtn');
+    const signupBtn=document.querySelector('.signupBtn');
+    const formBx=document.querySelector('.formBx');
+    const body=document.querySelector('body')
+
+    signupBtn.onclick=function(){
+      formBx.classList.add('active')
+    }
+
+    signinBtn.onclick=function(){
+      formBx.classList.remove('active')
+    }
+</script>

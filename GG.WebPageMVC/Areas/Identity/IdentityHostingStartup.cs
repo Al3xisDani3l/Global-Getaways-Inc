@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using GG.WebPageMVC.Areas.Identity.Pages.Account;
 
 [assembly: HostingStartup(typeof(GG.WebPageMVC.Areas.Identity.IdentityHostingStartup))]
 namespace GG.WebPageMVC.Areas.Identity
@@ -16,6 +17,8 @@ namespace GG.WebPageMVC.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
+
+               
             });
         }
     }

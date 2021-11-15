@@ -3,29 +3,193 @@
 
 @{
     ViewData["Title"] = "Login";
-    Layout = "/Areas/Identity/Pages/_Layout.cshtml"; 
+    Layout = "/Areas/Identity/Pages/_Layout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
+
 
 <div class="container">
-    <div class="row main-content color">
-        <div class="col-12 col-sm-12">
-            <div class="col-12">
-                <img class="rounded mx-auto d-block img" src="~/imagenes/logotipo.png" alt="login">
-
+    <div class="blueBg">
+        <div class="box signin">
+            <h2>¿Uno de nosotros?</h2>
+            <p>¿Ya tienes una cuenta?</p>
+            <p>Inicia sesión ¡Te extrañamos!</p>
+            <button class="signinBtn">Login</button>
+        </div>
+        <div class="box signup">
+            <h2>¿Eres Nuevo?</h2>
+            <p>¡Descubre una gran cantidad </p>
+            <p>de nuevas oportunidades!</p>
+            <button class="signupBtn">Registrar</button>
+        </div>
+    </div>
     
+    <div class="formBx">
+        <div class="form signinForm">
+            <form id="account" method="post">
+                <h3>Iniciar Sesión</h3>
+                <input asp-for="Input.Email" type="text" placeholder="Email">
+                <input asp-for="Input.Password" type="password" placeholder="Password">
+                <input type="submit" value="Login">
+                <a asp-page="./ForgotPassword" class="forgot">Olvidé mi contraseña</a>
+
+                <div class="social-media">
+                    <ul>
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+                            if (provider.Name == "Facebook")
+                            {
+                                <li><img src="~/signin/redes sociales/facebook.png"></li>
+                            }
+                            if (provider.Name == "Google")
+                            {
+                                <li><img src="~/signin/redes sociales/gooooogle.png"></li>
+                            }
+                            if (provider.Name == "Linkedin")
+                            {
+                                <li><img src="~/signin/redes sociales/linkedin.png"></li>
+                            }
+                            if (provider.Name == "Instagram")
+                            {
+                                <li><img src="~/signin/redes sociales/instagram.png"></li>
+                            }
+
+
+                        }
+
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        
+        <div class="form signupForm">
+            <form>
+                <h3>Registrarse</h3>
+                <input type="text" placeholder="Username">
+                <input type="text" placeholder="Email Address">
+                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Confirm Password">
+                <input type="submit" value="Register">
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const signinBtn=document.querySelector('.signinBtn');
+    const signupBtn=document.querySelector('.signupBtn');
+    const formBx=document.querySelector('.formBx');
+    const body=document.querySelector('body')
+
+    signupBtn.onclick=function(){
+      formBx.classList.add('active')
+    }
+
+    signinBtn.onclick=function(){
+      formBx.classList.remove('active')
+    }
+</script>
+
+
+
+
+
+
+@*<div class="container">
+        <div class="row main-content color">
+            <div class="col-12 col-sm-12">
+                <div class="col-12">
+                    <img class="rounded mx-auto d-block img" src="~/imagenes/logotipo.png" alt="login">
+
+
+                </div>
+                <div class="col-10">
+                    <form class="form" id="account" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Correo:</label>
+                            <input asp-for="Input.Email" class="form-control" id="Correo" aria-describedby="emailHelp">
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Contraseña:</label>
+                            <input asp-for="Input.Password" class="form-control" id="Contrasenia">
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Input.RememberMe">
+                                    <input asp-for="Input.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="bbtn btn-primary btn-lg">Entrar</button>
+                        <div class="form-group">
+                            <p>
+                                <a id="forgot-password" asp-page="./ForgotPassword">¿olvidaste tu contraseña?</a>
+                            </p>
+                            <p>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+                <h5 class="text-center h5">¿Quieres iniciar sesión con tus redes?</h5>
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div class="row text-center">
+                        <div class="col-12">
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                if (provider.Name == "Facebook")
+                                {
+                                    <a name="provider" type="submit" href="./ExternalLogins" id="" value="@provider.Name" class="btn" role="button">
+                                        <img src="~/signin/redes sociales/facebook.svg" alt="" width="30px" height="30px">
+                                    </a>
+                                }
+                                if (provider.Name == "Google")
+                                {
+                                    <a name="provider" type="submit" href="./ExternalLogins" id="" value="@provider.Name" class="btn" role="button">
+                                        <img src="~/signin/redes sociales/google.svg" alt="" width="30px" height="30px">
+
+                                    </a>
+                                }
+                                if (provider.Name == "Linkedin")
+                                {
+                                    <a name="provider" type="submit" href="./ExternalLogins" id="" value="@provider.Name" class="btn" role="button">
+                                        <img src="~/signin/redes sociales/linkedin.svg" alt="" width="30px" height="30px">
+                                    </a>
+                                }
+
+
+                            }
+
+
+
+                        </div>
+                    </div>
+                 </form>
             </div>
-            <div class="col-10">
-                <form class="form" id="account" method="post">
+        </div>
+    </div>*@
+
+
+@*<div class="row">
+        <div class="col-md-4">
+            <section>
+                <form id="account" method="post">
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Correo:</label>
-                        <input asp-for="Input.Email" class="form-control" id="Correo" aria-describedby="emailHelp">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Contraseña:</label>
-                        <input asp-for="Input.Password" class="form-control" id="Contrasenia">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -36,133 +200,58 @@
                             </label>
                         </div>
                     </div>
-                    <button type="submit" class="bbtn btn-primary btn-lg">Entrar</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </div>
                     <div class="form-group">
                         <p>
-                            <a id="forgot-password" asp-page="./ForgotPassword">¿olvidaste tu contraseña?</a>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                         </p>
                         <p>
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar</a>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        </p>
+                        <p>
+                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                         </p>
                     </div>
                 </form>
-            </div>
-            <h5 class="text-center h5">¿Quieres iniciar sesión con tus redes?</h5>
-            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <div class="row text-center">
-                    <div class="col-12">
-                        @foreach (var provider in Model.ExternalLogins)
-                        {
-                            if (provider.Name == "Facebook")
-                            {
-                                <a name="provider" type="submit" href="./ExternalLogins" id="" value="@provider.Name" class="btn" role="button">
-                                    <img src="~/signin/redes sociales/facebook.svg" alt="" width="30px" height="30px">
-                                </a>
-                            }
-                            if (provider.Name == "Google")
-                            {
-                                <a name="provider" type="submit" href="./ExternalLogins" id="" value="@provider.Name" class="btn" role="button">
-                                    <img src="~/signin/redes sociales/google.svg" alt="" width="30px" height="30px">
-
-                                </a>
-                            }
-                            if (provider.Name == "Linkedin")
-                            {
-                                <a name="provider" type="submit" href="./ExternalLogins" id="" value="@provider.Name" class="btn" role="button">
-                                    <img src="~/signin/redes sociales/linkedin.svg" alt="" width="30px" height="30px">
-                                </a>
-                            }
-
-
-                        }
-
-
-
-                    </div>
-                </div>
-             </form>
+            </section>
         </div>
-    </div>
-</div>
-
-
-@*<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h4>Use another service to log in.</h4>
                 <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use another service to log in.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
                         <div>
                             <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    if (provider.Name == "Google")
-                                    {
-
-                                    }
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
+                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                for details on setting up this ASP.NET application to support logging in via external services.
                             </p>
                         </div>
-                    </form>
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                        if (provider.Name == "Google")
+                                        {
+
+                                        }
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }
                 }
-            }
-        </section>
-    </div>
-</div>*@
+            </section>
+        </div>
+    </div>*@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

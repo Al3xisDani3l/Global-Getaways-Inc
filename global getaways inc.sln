@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.Api", "GG.API\GG.Api.csproj", "{C69BAC50-66EE-4A5F-BFE0-27B0D0556D74}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FD07B5A3-7056-4C6A-AC6D-71D01A60D80F} = {FD07B5A3-7056-4C6A-AC6D-71D01A60D80F}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.Core", "GG.Core\GG.Core.csproj", "{8CF329C7-7C86-481B-955A-ABBD84EC9648}"
 EndProject
@@ -11,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.Infrastructure", "GG.Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.Data", "GG.Database\GG.Data.csproj", "{4FFE919C-E08B-4031-BBA5-541B04C4681E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GG.WebPageMVC", "GG.WebPageMVC\GG.WebPageMVC.csproj", "{FD07B5A3-7056-4C6A-AC6D-71D01A60D80F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.WebPageMVC", "GG.WebPageMVC\GG.WebPageMVC.csproj", "{FD07B5A3-7056-4C6A-AC6D-71D01A60D80F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

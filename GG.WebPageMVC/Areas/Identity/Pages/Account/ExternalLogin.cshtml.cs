@@ -117,7 +117,7 @@ namespace GG.WebPageMVC.Areas.Identity.Pages.Account
             if (info == null)
             {
                 ErrorMessage = "Error loading external login information during confirmation.";
-                return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+                return RedirectToPage("./Account", new { ReturnUrl = returnUrl });
             }
 
             if (ModelState.IsValid)

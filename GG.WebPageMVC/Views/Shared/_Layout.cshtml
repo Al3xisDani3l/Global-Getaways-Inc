@@ -1,123 +1,93 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Global Gateways Inc.</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Getaways Oficial Site</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
     <!-- mis estilos -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="~/css/style.css">
+
+    <link href="~/custom/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 </head>
 <body>
 
     <header>
 
-        <a href="#" class="logo"><i class="fas fa-utensils"></i>GG.</a>
+        <a href="#" class="logo">GG Inc.</a>
 
         <nav class="navbar">
-            <a class="active" asp-controller="Home" asp-action="Index">Inicio</a>
-            <a href="#dishes">Viajes</a>
-            <a href="#about">Acerca de nosotros</a>
-            <a href="#menu">Paquetes</a>
-            <a href="#review">review</a>
-            <a href="#order">order</a>
+            <a class="active" href="index.html">Inicio</a>
+            <a href="#popular">Viajes</a>
+            <a href="#about">Acerca de Nosotros</a>
+            <a href="#paquetes">Paquetes</a>
+            <a href="#review">Review</a>
+            <a asp-area="Identity" asp-page="/Account/Account">Login</a>
         </nav>
 
         <div class="icons">
             <i class="fas fa-bars" id="menu-bars"></i>
             <i class="fas fa-search" id="search-icon"></i>
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-shopping-cart"></a>
+            <a href="favoritos.html" class="fas fa-heart"></a>
+            <a href="carrito.html" class="fas fa-shopping-cart"></a>
         </div>
-        <partial name="_LoginPartial" />
+
     </header>
-    @*<header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GG.WebPageMVC</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                        <partial name="_LoginPartial" />
-                    </div>
-                </div>
-            </nav>
-        </header>*@
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+
+
+    @RenderBody()
 
     <section class="footer">
 
-        <div class="box-container">
-
-            <div class="box">
-                <h3>locations</h3>
-                <a href="#">india</a>
-                <a href="#">japan</a>
-                <a href="#">russia</a>
-                <a href="#">USA</a>
-                <a href="#">france</a>
-            </div>
-
-            <div class="box">
-                <h3>quick links</h3>
-                <a href="#">home</a>
-                <a href="#">dishes</a>
-                <a href="#">about</a>
-                <a href="#">menu</a>
-                <a href="#">reivew</a>
-                <a href="#">order</a>
-            </div>
-
-            <div class="box">
-                <h3>contact info</h3>
-                <a href="#">+123-456-7890</a>
-                <a href="#">+111-222-3333</a>
-                <a href="#">shaikhanas@gmail.com</a>
-                <a href="#">anasbhai@gmail.com</a>
-                <a href="#">mumbai, india - 400104</a>
-            </div>
-
-            <div class="box">
-                <h3>follow us</h3>
-                <a href="#">facebook</a>
-                <a href="#">twitter</a>
-                <a href="#">instagram</a>
-                <a href="#">linkedin</a>
-            </div>
-
+        <div class="social">
+            <a href="https://www.instagram.com/global_getaways_inc/"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/GetawaysInc"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.facebook.com/Global-Getaways-Inc-104345958737333"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.linkedin.com/company/global-getaways-inco"><i class="fab fa-linkedin-in"></i></a>
         </div>
 
-        <div class="credit"> copyright  2021 by <span>mr. web designer</span> </div>
+        <ul>
+            <li>
+                <a href="index.html">Inicio</a>
+            </li>
+            <li>
+                <a href="#popular">Viajes</a>
+            </li>
+            <li>
+                <a href="#about">Acerca de Nosotros</a>
+            </li>
+            <li>
+                <a href="#paquetes">Paquetes</a>
+            </li>
+            <li>
+                <a href="#review">Review</a>
+            </li>
+        </ul>
+
+        <p class="correo">
+            GgetawaysInc@hotmail.com
+        </p>
 
     </section>
 
+    <!-- FOOTER SECTION ENDS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/site.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <!-- custom js file link  -->
-    <script src="~/js/script.js"></script>
+
+    <script src="~/custom/script.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

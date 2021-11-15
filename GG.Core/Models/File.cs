@@ -29,7 +29,7 @@ namespace GG.Core
         public Uri UriFile { get { return new Uri(UriString) {}; } set { UriString = value.AbsolutePath; } }
 
 
-        public virtual Orden IdOrdenNavigation { get; set; }
+     
 
     }
 }
