@@ -13,7 +13,7 @@ namespace GG.Core
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public Guid Guid { get; set; }
+        public Guid Guid { get; set; } = Guid.NewGuid();
 
     }
 }

@@ -95,99 +95,99 @@ namespace GG.Api.Filters
 
             }
 
-            if (_repository is IRepository<Orden,int>)
-            {
-                var _ordenRepository = _repository as IRepository<Orden,int>;
-                if (!string.IsNullOrEmpty(idencabezado))
-                {
+            //if (_repository is IRepository<Orden,int>)
+            //{
+            //    var _ordenRepository = _repository as IRepository<Orden,int>;
+            //    if (!string.IsNullOrEmpty(idencabezado))
+            //    {
 
-                    Orden orden = _ordenRepository.Find(o => o.IdUser.ToString() == idencabezado);
+            //        Orden orden = _ordenRepository.Find(o => o.IdUser.ToString() == idencabezado);
 
-                    if (orden == null)
-                    {
-                        return;
-                    }
+            //        if (orden == null)
+            //        {
+            //            return;
+            //        }
 
-                    if (sid == orden.IdUser.ToString())
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        context.Result = new UnauthorizedObjectResult("No tienes autorizacion para modificar esta entidad!");
-                    }
+            //        if (sid == orden.IdUser.ToString())
+            //        {
+            //            return;
+            //        }
+            //        else
+            //        {
+            //            context.Result = new UnauthorizedObjectResult("No tienes autorizacion para modificar esta entidad!");
+            //        }
 
-                }
+            //    }
 
-                else if (ActionParameter.Count > 0)
-                {
+            //    else if (ActionParameter.Count > 0)
+            //    {
 
-                    var parameter = context.ActionArguments["entity"] != null ? context.ActionArguments["entity"] as OrdenDto : context.ActionArguments["administer"] as OrdenDto;
+            //        var parameter = context.ActionArguments["entity"] != null ? context.ActionArguments["entity"] as OrdenDto : context.ActionArguments["administer"] as OrdenDto;
 
-                    Orden orden = _ordenRepository.Find(o => o.IdUser == parameter.Id);
+            //        Orden orden = _ordenRepository.Find(o => o.IdUser == parameter.Id);
 
-                    if (orden.IdUser != parameter.IdUser)
-                    {
-                        context.Result = new UnauthorizedObjectResult("No puedes modificar el propietario de una entidad!");
-                    }
+            //        if (orden.IdUser != parameter.IdUser)
+            //        {
+            //            context.Result = new UnauthorizedObjectResult("No puedes modificar el propietario de una entidad!");
+            //        }
 
-                    if (parameter.IdUser.ToString() != sid)
-                    {
-                        context.Result = new UnauthorizedObjectResult("No tienes autorizacion para modificar esta entidad!");
-                    }
-
-
-
-                }
-
-            }
-
-            if (_repository is IRepository<OrdenComment,int>)
-            {
-                var _ordenRepository = _repository as IRepository<OrdenComment,int>;
-                if (!string.IsNullOrEmpty(idencabezado))
-                {
-
-                    OrdenComment orden = _ordenRepository.Find(o => o.IdUser.ToString() == idencabezado);
-
-                    if (orden == null)
-                    {
-                        return;
-                    }
-
-                    if (sid == orden.IdUser.ToString())
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        context.Result = new UnauthorizedObjectResult("No tienes autorizacion para modificar esta entidad!");
-                    }
-
-                }
-
-                else if (ActionParameter.Count > 0)
-                {
-
-                    var parameter = context.ActionArguments["entity"] != null ? context.ActionArguments["entity"] as OrdenCommentDto : context.ActionArguments["administer"] as OrdenCommentDto;
-
-                    OrdenComment orden = _ordenRepository.Find(o => o.IdUser == parameter.Id);
-
-                    if (orden.IdUser != parameter.IdUser)
-                    {
-                        context.Result = new UnauthorizedObjectResult("No puedes modificar el propietario de una entidad!");
-                    }
-
-                    if (parameter.IdUser.ToString() != sid)
-                    {
-                        context.Result = new UnauthorizedObjectResult("No tienes autorizacion para modificar esta entidad!");
-                    }
+            //        if (parameter.IdUser.ToString() != sid)
+            //        {
+            //            context.Result = new UnauthorizedObjectResult("No tienes autorizacion para modificar esta entidad!");
+            //        }
 
 
 
-                }
+            //    }
 
-            }
+            //}
+
+            //if (_repository is IRepository<OrdenComment,int>)
+            //{
+            //    var _ordenRepository = _repository as IRepository<OrdenComment,int>;
+            //    if (!string.IsNullOrEmpty(idencabezado))
+            //    {
+
+            //        OrdenComment orden = _ordenRepository.Find(o => o.IdUser.ToString() == idencabezado);
+
+            //        if (orden == null)
+            //        {
+            //            return;
+            //        }
+
+            //        if (sid == orden.IdUser.ToString())
+            //        {
+            //            return;
+            //        }
+            //        else
+            //        {
+            //            context.Result = new UnauthorizedObjectResult("No tienes autorizacion para modificar esta entidad!");
+            //        }
+
+            //    }
+
+            //    else if (ActionParameter.Count > 0)
+            //    {
+
+            //        var parameter = context.ActionArguments["entity"] != null ? context.ActionArguments["entity"] as OrdenCommentDto : context.ActionArguments["administer"] as OrdenCommentDto;
+
+            //        OrdenComment orden = _ordenRepository.Find(o => o.IdUser == parameter.Id);
+
+            //        if (orden.IdUser != parameter.IdUser)
+            //        {
+            //            context.Result = new UnauthorizedObjectResult("No puedes modificar el propietario de una entidad!");
+            //        }
+
+            //        if (parameter.IdUser.ToString() != sid)
+            //        {
+            //            context.Result = new UnauthorizedObjectResult("No tienes autorizacion para modificar esta entidad!");
+            //        }
+
+
+
+            //    }
+
+            //}
 
 
 
@@ -200,25 +200,25 @@ namespace GG.Api.Filters
 
     }
 
-    [System.AttributeUsage(AttributeTargets.Method)]
-    public class OwnerOrdenAttribute : OwnerOrAdministerAttribute
-    {
-        public OwnerOrdenAttribute() : base(typeof(IRepository<Orden,int>))
-        {
-        }
-    }
+   // [System.AttributeUsage(AttributeTargets.Method)]
+    //public class OwnerOrdenAttribute : OwnerOrAdministerAttribute
+    //{
+    //    public OwnerOrdenAttribute() : base(typeof(IRepository<Orden,int>))
+    //    {
+    //    }
+    //}
 
-    public class OwnerUserAttribute : OwnerOrAdministerAttribute
-    {
-        public OwnerUserAttribute() : base(typeof(IRepository<PrivateUser,string>))
-        {
-        }
-    }
+    //public class OwnerUserAttribute : OwnerOrAdministerAttribute
+    //{
+    //    public OwnerUserAttribute() : base(typeof(IRepository<PrivateUser,string>))
+    //    {
+    //    }
+    //}
 
-    public class OwnerCommentAttribute : OwnerOrAdministerAttribute
-    {
-        public OwnerCommentAttribute() : base(typeof(IRepository<OrdenComment,int>))
-        {
-        }
-    }
+    //public class OwnerCommentAttribute : OwnerOrAdministerAttribute
+    //{
+    //    public OwnerCommentAttribute() : base(typeof(IRepository<OrdenComment,int>))
+    //    {
+    //    }
+    //}
 }

@@ -41,7 +41,7 @@ namespace GG.WebPageMVC.Controllers
                         Price = 1807.3M, 
                         Labels = "China; Gran Muralla; Muralla; Gran Muralla China;",
                         Review = "La Gran Muralla China es una antigua fortificación china,construida y reconstruida entre el siglo v a. C. y el siglo xvi para proteger la frontera norte del Imperio chino durante las sucesivas dinastías imperiales de los ataques de los nómadas xiongnu de Mongolia y Manchuria.",
-                        Punctuation = 1
+                        //Punctuation = 1
                     }
                       
                 }
@@ -62,6 +62,15 @@ namespace GG.WebPageMVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        public async Task<IActionResult> LikedItem(int id)
+        {
+
+
+            return NotFound();
+
         }
     }
 }

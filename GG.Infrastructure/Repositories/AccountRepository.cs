@@ -51,22 +51,12 @@ namespace GG.Infrastructure.Repositories
               var users =  await this.GetAllAsync();
 
                 var userbyemail = users.FirstOrDefault(u => u.Email == login.Email);
-                var userbyGoogleId = users.FirstOrDefault(u => u.UsernameGoogle == login.GoogleId);
+                
 
-                if (userbyGoogleId is not null)
-                {
-                    return userbyGoogleId;
-                }
 
                 if (userbyemail is not null)
                 {
-                    if (string.IsNullOrEmpty(userbyemail.UsernameGoogle))
-                    {
-                        userbyemail.UsernameGoogle = login.GoogleId;
-                        var result = await UpdateAsync(userbyemail);
-
-                        return result;
-                    }
+                    
                     return userbyemail;
                 }
                 return null;

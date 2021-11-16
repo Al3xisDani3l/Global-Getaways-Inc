@@ -1,24 +1,25 @@
 ﻿
 
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GG.Core
 {
     public class User : BaseIdentityUser
     {
 
-        
-        
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Telefono { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public string Email { get; set; }
-        public UserKind TipoUsuario { get; set; }
-        public RoleType Role { get; set; }
-        public bool Suscrito { get; set; }
-        public bool EsVoluntario { get; set; }
-        public Guid? GoogleUUID { get; set; }
+
+
+        [StringLength(64)]
+        public string Name { get; set; }
+        [StringLength(64)]
+        public string Lastname { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? Birthday { get; set; }
+
+        public UserKind? KindUser { get; set; }
+
+        public string? Gender { get; set; }
 
 
     }

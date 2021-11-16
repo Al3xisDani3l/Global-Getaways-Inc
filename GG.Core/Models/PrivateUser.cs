@@ -20,15 +20,13 @@ namespace GG.Core
 
         public PrivateUser()
         {
-         //   Ordenes = new HashSet<Orden>();
+            MyLikes = new HashSet<LikedPackage>();
 
-          //  Comments = new HashSet<OrdenComment>();
+            MyRatings = new HashSet<PrivateRating>();
 
 
         }
 
-      
-       
         [StringLength(64)]
         public string Name { get; set; }
         [StringLength(64)]
@@ -40,10 +38,9 @@ namespace GG.Core
 
         public string? Gender { get; set; }
 
-        public string? UsernameGoogle { get; set; }
        
-     //   public virtual ICollection<Orden> Ordenes { get; set; }
+        public virtual ICollection<LikedPackage> MyLikes { get; set; }
        
-      //  public virtual ICollection<OrdenComment> Comments { get; set; }
+       public virtual ICollection<PrivateRating> MyRatings { get; set; }
     }
 }

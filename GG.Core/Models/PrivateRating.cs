@@ -22,6 +22,8 @@ namespace GG.Core
 
         public DateTime PostingDate { get; set; }
 
+        public DateTime LastUpdate { get; set; }
+
         public virtual PrivateUser IdUserNavigation { get; set; }
         
         public virtual PrivateTravelPackage IdTravelPackageNavigation { get; set; }

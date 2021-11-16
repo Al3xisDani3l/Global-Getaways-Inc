@@ -8,11 +8,8 @@ namespace GG.Core
     [Table("files")]
     public class File : BaseEntity
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+    
 
-        [ForeignKey("IdOrdenNavigation")]
-        public int IdOrden { get; set; }
         [Required, StringLength(128)]
         public string UriString { get; set; }
 

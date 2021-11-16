@@ -234,7 +234,7 @@ namespace GG.Api
                     //administer.Lastname = configuration["Administer:apellido"].ToString();
                     //administer.Password = password.Hash(configuration["Administer:password"].ToString());
                     //administer.Role = RoleType.Administrator;
-                    administer.UsernameGoogle = null;
+                    //administer.UsernameGoogle = null;
                    
 
                     if (context.Users.FirstOrDefaultAsync(u => u.Email == administer.Email) == null)

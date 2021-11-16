@@ -32,6 +32,9 @@ namespace GG.Data
             builder.Entity<IdentityUserLogin<string>>().ToTable("Logins");
             builder.Entity<IdentityUserClaim<string>>().ToTable("Claims");
             builder.Entity<IdentityRole>().ToTable("Roles");
+            builder.Entity<PrivateTravelPackage>().ToTable("TravelPackages");
+            builder.Entity<PrivateRating>().ToTable("Ratings");
+            builder.Entity<LikedPackage>().ToTable("Likeds");
 
 
 
