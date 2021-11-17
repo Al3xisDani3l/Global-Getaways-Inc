@@ -31,24 +31,11 @@ namespace GG.WebPageMVC.Controllers
 
             //Datos de prueba
 
-            List<PrivateTravelPackage> privateTravelPackages = new List<PrivateTravelPackage>();
+             var travels =   await _repository.GetAllAsync();
 
-            privateTravelPackages.AddRange(
-                new[]
-                {
-                    new PrivateTravelPackage(){ Country = "China",
-                        PathingImage = "https://superhistoria.pl/_thumb/12/24/7b68d5c149xxe73f15a82fb0a533.jpeg",
-                        Price = 1807.3M, 
-                        Labels = "China; Gran Muralla; Muralla; Gran Muralla China;",
-                        Review = "La Gran Muralla China es una antigua fortificación china,construida y reconstruida entre el siglo v a. C. y el siglo xvi para proteger la frontera norte del Imperio chino durante las sucesivas dinastías imperiales de los ataques de los nómadas xiongnu de Mongolia y Manchuria.",
-                        //Punctuation = 1
-                    }
-                      
-                }
+            ViewBag.Swipper = travels.Take(5).ToList();
 
-                );
-
-            ViewBag.Travels = privateTravelPackages;
+            ViewBag.Travels = travels.Take(10).ToList();
 
             return View();
         }

@@ -28,6 +28,7 @@ namespace GG.Core
         public string? State { get; set; }
         public string Country { get; set; }
 
+        public string NamePackage { get; set; }
         public bool IsAvailable { get; set; } = true;
 
         [Range(0,1000000)]

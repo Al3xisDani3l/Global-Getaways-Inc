@@ -16,6 +16,7 @@ using System.IO;
 using System.Globalization;
 using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using System.Text;
 
 namespace GG.WebPageMVC
 {
@@ -48,9 +49,9 @@ namespace GG.WebPageMVC
 
                             var csvPath = Path.Combine(pathBase, "Csv", "TravelPackages.csv");
 
-                            var config = new CsvConfiguration(CultureInfo.InvariantCulture) { MissingFieldFound = null, HeaderValidated = null };
+                            var config = new CsvConfiguration(new CultureInfo("es-MX")) { MissingFieldFound = null, HeaderValidated = null };
 
-                            using (StreamReader reader = new StreamReader(csvPath))
+                            using (StreamReader reader = new StreamReader(csvPath, Encoding.GetEncoding(1252)))
                             {
                                 using (var csvreader = new CsvReader(reader, config))
                                 {
@@ -62,7 +63,7 @@ namespace GG.WebPageMVC
                                         var Packages = records.ToList();
 
                                         context.TravelPackages.AddRange(Packages);
-                                       
+
 
                                     }
 
@@ -76,6 +77,7 @@ namespace GG.WebPageMVC
                             }
 
                         }
+                   
                         
                     }
 

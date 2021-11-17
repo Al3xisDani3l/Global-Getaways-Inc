@@ -8,6 +8,7 @@
 
 @{
     List<PrivateTravelPackage> travelPackages = (List<PrivateTravelPackage>)ViewBag.Travels;
+    List<PrivateTravelPackage> swipper =  (List<PrivateTravelPackage>)ViewBag.Swipper;
 }
 <form action="" id="search-form">
     <input type="search" placeholder="Buscar aqui..." name="" id="search-box">
@@ -23,38 +24,23 @@
 
         <div class="swiper-wrapper wrapper">
 
-            <div class="swiper-slide slide">
+            
+        @foreach (var item in swipper)
+       {
+           <div class="swiper-slide slide">
                 <div class="content">
-                    <span>Netherlands</span>
-                    <h3>Amsterdam</h3>
-                    <p>Amsterdam is located in the Western Netherlands, in the province of North Holland, the capital of which is not Amsterdam, but rather Haarlem. </p>
+                    <span>@item.Country</span>
+                    <h3>@item.NamePackage</h3>
+                    <p>@item.Review</p>
                 </div>
                 <div class="image">
-                    <img src="imagenes/imagenes/amsterdam.jpg" alt="">
+                    <img src="@item.PathingImage" alt="">
                 </div>
             </div>
+       }
 
-            <div class="swiper-slide slide">
-                <div class="content">
-                    <span>Istanbul, Turkey</span>
-                    <h3>Hagia Sophia</h3>
-                    <p>Hagia Sophia was the seat of the Patriarchate of Constantinople and a principal setting for Byzantine imperial ceremonies, such as coronations.</p>
-                </div>
-                <div class="image">
-                    <img src="imagenes/imagenes/turkish.jpg" alt="">
-                </div>
-            </div>
 
-            <div class="swiper-slide slide">
-                <div class="content">
-                    <span>London, England</span>
-                    <h3> Buckingham Palace</h3>
-                    <p>Buckingham Palace has served as the official London residence of the UK's sovereigns since 1837 and today is the administrative headquarters of the Monarch.</p>
-                </div>
-                <div class="image">
-                    <img src="imagenes/imagenes/palacio-de-buckingham-londres-inglaterra.jpg" alt="">
-                </div>
-            </div>
+        
 
         </div>
 
@@ -73,30 +59,14 @@
     <h1 class="heading"> Lo Más Popular </h1>
 
     <div class="box-container">
-        <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="imagenes/imagenes/mazatlan.jpg" alt="">
-            <h3>Mazatlán</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span>$650 dlls</span>
-            <a href="#" class="btn">Añadir al Carrito</a>
-        </div>
-
-
+       
         @foreach(var item in travelPackages)
         {
              <div class="box">
             <a href="#" class="fas fa-heart"></a>
             <a href="#" class="fas fa-eye"></a>
             <img src="@item.PathingImage" alt="">
-            <h3>@item.Country</h3>
+            <h3>@item.NamePackage</h3>
             <div class="stars">
                     @{
                         
@@ -125,7 +95,7 @@
         </div>
         }
         
-        <div class="box">
+       @* <div class="box">
             <a href="#" class="fas fa-heart"></a>
             <a href="#" class="fas fa-eye"></a>
             <img src="imagenes/imagenes/Mejores-Playas-de-Cancún.jpg" alt="">
@@ -203,7 +173,7 @@
             </div>
             <span>$1250 Dlls</span>
             <a href="#" class="btn">Añadir al Carrito</a>
-        </div>
+        </div>*@
 
     </div>
 
