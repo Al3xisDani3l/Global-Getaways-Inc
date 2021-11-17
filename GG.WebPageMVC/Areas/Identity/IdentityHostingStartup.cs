@@ -16,7 +16,7 @@ namespace GG.WebPageMVC.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.UseKestrel();
+           
            
             builder.ConfigureServices((context, services) => {
 

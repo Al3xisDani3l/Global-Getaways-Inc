@@ -108,7 +108,7 @@ namespace GG.WebPageMVC
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
-               
+                app.AddFirstData();
             }
             else
             {
@@ -135,7 +135,7 @@ namespace GG.WebPageMVC
             });
 
 
-          //  app.AddFirstData();
+           
 
 
         }
