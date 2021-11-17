@@ -24,11 +24,17 @@
 
   <ItemGroup>
 
+    <Content Remove="Areas\Identity\Pages\Account\Account.cshtml" />
+
     <Content Remove="wwwroot\js\script.js" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="ExternalSource\log in\.vscode\settings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\Identity\Pages\Account\Account.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,9 +110,6 @@
     </Content>
     <Content Update="wwwroot\logotipo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\Metodos datos.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\signin\loginstyle.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

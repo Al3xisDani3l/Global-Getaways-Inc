@@ -108,7 +108,7 @@ namespace GG.WebPageMVC
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
-                app.AddFirstData();
+               
             }
             else
             {
@@ -126,13 +126,18 @@ namespace GG.WebPageMVC
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
+               
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                
             });
 
-           
+
+          //  app.AddFirstData();
+
+
         }
 
     }

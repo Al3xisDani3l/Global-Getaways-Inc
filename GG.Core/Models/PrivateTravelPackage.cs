@@ -25,6 +25,7 @@ namespace GG.Core
 
         public string Labels { get; set; }
 
+        public string? State { get; set; }
         public string Country { get; set; }
 
         public bool IsAvailable { get; set; } = true;

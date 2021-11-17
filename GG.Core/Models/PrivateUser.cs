@@ -32,10 +32,11 @@ namespace GG.Core
         [StringLength(64)]
         public string Lastname { get; set; }
         [DataType(DataType.Date)]
+
+        public string ProfileImg { get; set; }
+
         public DateTime? Birthday { get; set; }
     
-        public UserKind? KindUser { get; set; }
-
         public string? Gender { get; set; }
 
        
