@@ -18,6 +18,11 @@
   transition: all 0.2s linear;
 }
 
+.divPrincipal{
+    height:100%;
+    width:100%;
+}
+
 .rowC {
   display: flex;
   flex-wrap: wrap;

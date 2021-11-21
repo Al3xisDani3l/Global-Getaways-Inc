@@ -1,13 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.Api", "GG.API\GG.Api.csproj", "{C69BAC50-66EE-4A5F-BFE0-27B0D0556D74}"
-	ProjectSection(ProjectDependencies) = postProject
-		{FD07B5A3-7056-4C6A-AC6D-71D01A60D80F} = {FD07B5A3-7056-4C6A-AC6D-71D01A60D80F}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.Core", "GG.Core\GG.Core.csproj", "{8CF329C7-7C86-481B-955A-ABBD84EC9648}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.Infrastructure", "GG.Infrastructure\GG.Infrastructure.csproj", "{7216876D-A926-4809-8C1A-CF5A37254EBC}"
@@ -16,16 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.Data", "GG.Database\GG.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GG.WebPageMVC", "GG.WebPageMVC\GG.WebPageMVC.csproj", "{FD07B5A3-7056-4C6A-AC6D-71D01A60D80F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E145A200-FDB9-4EA6-884D-8511A2BF3DC9}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C69BAC50-66EE-4A5F-BFE0-27B0D0556D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C69BAC50-66EE-4A5F-BFE0-27B0D0556D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C69BAC50-66EE-4A5F-BFE0-27B0D0556D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C69BAC50-66EE-4A5F-BFE0-27B0D0556D74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8CF329C7-7C86-481B-955A-ABBD84EC9648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8CF329C7-7C86-481B-955A-ABBD84EC9648}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CF329C7-7C86-481B-955A-ABBD84EC9648}.Release|Any CPU.ActiveCfg = Release|Any CPU

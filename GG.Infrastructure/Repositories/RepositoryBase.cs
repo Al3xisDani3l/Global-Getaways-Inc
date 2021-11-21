@@ -18,7 +18,9 @@ namespace GG.Infrastructure.Repositories
 
         protected internal DbSet<TEntity> _entities;
 
-        protected internal readonly bool _isPlural;
+        protected internal List<string> _virtualProperties;
+
+   
 
         internal string _nameT;
 
@@ -28,8 +30,8 @@ namespace GG.Infrastructure.Repositories
             _context = context;
             _entities = _context.Set<TEntity>();
             _nameT = new TEntity().GetType().Name;
-            _isPlural = _nameT.EndsWith("s");
 
+            _virtualProperties = typeof(TEntity).GetProperties().Where(x => !x.GetAccessors()[0].IsFinal && x.GetAccessors()[0].IsVirtual).Select(p => p.Name).ToList();
 
 
 
@@ -77,7 +79,7 @@ namespace GG.Infrastructure.Repositories
         public TEntity Find(Expression<Func<TEntity, bool>> expression)
         {
 
-            return _entities.FirstOrDefault(expression);
+            return Include(_entities).FirstOrDefault(expression);
         }
 
         public TEntity Find(Expression<Func<TEntity, bool>> expression, params string[] includes)
@@ -89,12 +91,13 @@ namespace GG.Infrastructure.Repositories
                 query = query.Include(include);
             }
 
+
             return query.FirstOrDefault(expression);
         }
 
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return await _entities.FirstOrDefaultAsync(expression);
+            return await Include(_entities).FirstOrDefaultAsync(expression);
         }
 
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression, params string[] includes)
@@ -127,27 +130,28 @@ namespace GG.Infrastructure.Repositories
 
         public ICollection<TEntity> FindMany(Expression<Func<TEntity, bool>> expression)
         {
-            return _entities.Where(expression).ToList();
+            return Include(_entities).Where(expression).ToList();
+            
         }
 
         public async Task<ICollection<TEntity>> FindManyAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return await _entities.Where(expression).ToListAsync();
+            return await Include(_entities).Where(expression).ToListAsync();
         }
 
         public ICollection<TEntity> GetAll()
         {
-            return _entities.ToList();
+            return Include(_entities).ToList();
         }
 
         public async Task<ICollection<TEntity>> GetAllAsync()
         {
-            return await _entities.ToListAsync();
+            return await Include(_entities).ToListAsync();
         }
 
         public async Task<ICollection<TResult>> GetAllAsync<TResult>(Expression<Func<TEntity, TResult>> selector)
         {
-            var result = await _entities.Select(selector).ToListAsync();
+            var result = await Include(_entities).Select(selector).ToListAsync();
             return result;
         }
 
@@ -202,8 +206,16 @@ namespace GG.Infrastructure.Repositories
 
         }
 
+        private IQueryable<TEntity> Include(DbSet<TEntity> enties)
+        {
+            IQueryable<TEntity> iq = enties.AsQueryable();
+            foreach (var item in _virtualProperties)
+            {
+                iq = iq.Include(item);
+            }
 
-       
+            return iq;
+        }
         public Task<TEntity> FindAndSelectAsync<TResult>(Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> where)
         {
             throw new NotImplementedException();
@@ -227,6 +239,12 @@ namespace GG.Infrastructure.Repositories
         public ICollection<TEntity> FindManyAndSelect<TResult>(Expression<Func<TEntity, TResult>> selector, Expression<Func<TEntity, bool>> where)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<TEntity> FindByKeyAsync(TKey tkey)
+        {
+            return await Include(_entities).FirstOrDefaultAsync(o => o.Id.Equals(tkey));
+
         }
 
 

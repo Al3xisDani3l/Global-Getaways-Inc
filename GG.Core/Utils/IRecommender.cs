@@ -8,7 +8,7 @@ namespace GG.Core
     public interface IRecommender<Tkey> where Tkey: IEquatable<Tkey>
     {
 
-        public Task<IList<IRemarkable>> GetBestItems(Tkey key);
+        public Task<IList<IRemarkableItem>> GetBestItems(Tkey key);
 
         public Task<double> TrainModel();
 

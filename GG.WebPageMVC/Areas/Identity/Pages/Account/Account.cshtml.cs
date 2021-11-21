@@ -118,6 +118,7 @@ namespace GG.WebPageMVC.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+             
                 var result = await _signInManager.PasswordSignInAsync(InputLogin.LEmail, InputLogin.LPassword, InputLogin.LRememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {

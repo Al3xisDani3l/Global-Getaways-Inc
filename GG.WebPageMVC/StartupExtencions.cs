@@ -17,6 +17,7 @@ using System.Globalization;
 using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 
 namespace GG.WebPageMVC
 {
@@ -24,7 +25,7 @@ namespace GG.WebPageMVC
     {
 
        
-        public static IApplicationBuilder AddFirstData(this IApplicationBuilder app)
+        public static IApplicationBuilder AddTravelsPackages(this IApplicationBuilder app)
         {
            
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
@@ -90,6 +91,203 @@ namespace GG.WebPageMVC
 
                 return app;
             }
+        }
+
+
+        public static IApplicationBuilder AddUsers(this IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+
+                //Obtenemos el entorno donde se ejecuta la aplicacion
+                IWebHostEnvironment _env = serviceScope.ServiceProvider.GetService<IWebHostEnvironment>();
+
+                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
+                {
+
+
+                    var users = context.Users.ToList();
+
+                    if (users.Count == 0)
+                    {
+
+                        var pathBase = _env.WebRootPath;
+
+                        var csvPath = Path.Combine(pathBase, "Csv", "Users.csv");
+
+                        var config = new CsvConfiguration(new CultureInfo("es-MX")) { MissingFieldFound = null, HeaderValidated = null };
+
+                        using (StreamReader reader = new StreamReader(csvPath, Encoding.GetEncoding(1252)))
+                        {
+                            using (var csvreader = new CsvReader(reader, config))
+                            {
+
+                                var records = csvreader.GetRecords<PrivateUser>();
+
+                                if (records is not null)
+                                {
+                                    var rUsers = records.ToList();
+
+                                    var _userManager = serviceScope.ServiceProvider.GetService<UserManager<PrivateUser>>();
+
+                                    foreach (var user in rUsers)
+                                    {
+                                        user.EmailConfirmed = true;
+                                        user.PhoneNumberConfirmed = true;
+
+                                        user.UserName = user.Email; 
+                                        var result = _userManager.CreateAsync(user, user.Password).Result;
+                                    }
+
+
+                                }
+
+                               
+
+
+                            }
+                        }
+
+
+                    }
+                }
+
+
+
+            }
+
+                    return app;
+        }
+
+        public static IApplicationBuilder SetLikes(this IApplicationBuilder app)
+        {
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+
+                //Obtenemos el entorno donde se ejecuta la aplicacion
+                IWebHostEnvironment _env = serviceScope.ServiceProvider.GetService<IWebHostEnvironment>();
+
+                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
+                {
+
+
+                    var users = context.Users.ToList();
+                    var travels = context.TravelPackages.ToList();
+                    var likes = context.LikedPackages.ToList();
+      
+
+                    if (users.Count > 0 && travels.Count > 0 && likes.Count == 0)
+                    {
+
+                        foreach (var user in users)
+                        {
+                            //asignamos una cantidad aleatoria de me gustas por usuario
+                            var cantidadLikes = new Random(2304).Next(15, 45);                 
+
+                            for (int i = 0; i < cantidadLikes; i++)
+                            {
+                                //usamos para determinar si ya ha sido likeado este paquete
+                                List<int> indexUsed = new List<int>();
+                                int indexTravel = 0;
+                                var indexRandom = new Random();
+
+                                do
+                                {
+                                     indexTravel = indexRandom.Next(0, travels.Count - 1);
+
+                                    
+
+                                } while (indexUsed.Contains(indexTravel));
+
+                                indexUsed.Add(indexTravel);
+                                var travel = travels[indexTravel];
+
+                              
+                                user.MyLikes.Add(new LikedPackage() { UserId = user.Id, TravelPackageId = travel.Id });
+
+
+                            }
+
+                        }
+
+                        context.SaveChanges();
+
+                    }
+                }
+
+
+
+            }
+
+            return app;
+
+        }
+
+        public static IApplicationBuilder SetReviews(this IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+
+                //Obtenemos el entorno donde se ejecuta la aplicacion
+                IWebHostEnvironment _env = serviceScope.ServiceProvider.GetService<IWebHostEnvironment>();
+
+                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
+                {
+
+
+                    var users = context.Users.ToList();
+                    var travels = context.TravelPackages.OrderBy(t => t.Id).ToList();
+                    var reviews = context.Ratings.ToList();
+
+
+                    if (users.Count > 0 && travels.Count > 0 && reviews.Count == 0)
+                    {
+                        var pathBase = _env.WebRootPath;
+
+                        var csvPath = Path.Combine(pathBase, "Csv", "Ratings.csv");
+
+                        var config = new CsvConfiguration(new CultureInfo("es-MX")) { MissingFieldFound = null, HeaderValidated = null };
+
+                        using (StreamReader reader = new StreamReader(csvPath, Encoding.GetEncoding(1252)))
+                        {
+                            using (var csvreader = new CsvReader(reader, config))
+                            {
+
+                                var records = csvreader.GetRecords<PrivateRating>();
+
+                                if (records is not null)
+                                {
+                                    var rRatings = records.ToList();
+
+
+                                    for (int i = 0; i < rRatings.Count; i++)
+                                    {
+
+                                        rRatings[i].IdTravelPackageNavigation = travels[i % travels.Count];
+
+                                        rRatings[i].IdUserNavigation = users[i % users.Count];
+
+
+                                    }
+                                    context.Ratings.AddRange(rRatings);
+                                }
+                            }
+                        }
+                    
+
+                        context.SaveChanges();
+
+                    }
+                }
+
+
+
+
+            }
+
+            return app;
+
         }
     }
 }

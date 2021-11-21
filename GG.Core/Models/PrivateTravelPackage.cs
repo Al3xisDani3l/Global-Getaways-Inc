@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GG.Core
 {
-    public class PrivateTravelPackage: BaseEntity, IRemarkable
+    public class PrivateTravelPackage: BaseEntity, IRemarkableItem
     {
 
 
@@ -36,7 +36,7 @@ namespace GG.Core
         public decimal Price { get; set; }
 
         [NotMapped]
-        public double Punctuation { get {
+        public double PunctuationAverage { get {
 
                 if (Ratings.Count > 0)
                 {

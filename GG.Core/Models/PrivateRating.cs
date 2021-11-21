@@ -18,11 +18,11 @@ namespace GG.Core
         public int Punctuation { get; set; }
 
         [StringLength(255)]
-        public string Review { get; set; }
+        public string Comment { get; set; }
 
-        public DateTime PostingDate { get; set; }
+        public DateTime PostingDate { get; set; } = DateTime.Now;
 
-        public DateTime LastUpdate { get; set; }
+        public DateTime LastUpdate { get; set; } = DateTime.Now;
 
         public virtual PrivateUser IdUserNavigation { get; set; }
         

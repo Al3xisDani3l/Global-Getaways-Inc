@@ -17,7 +17,7 @@ namespace GG.Infrastructure
             _dbContext = dbContext;
         }
 
-        public Task<IList<IRemarkable>> GetBestItems(string key)
+        public Task<IList<IRemarkableItem>> GetBestItems(string key)
         {
 
           

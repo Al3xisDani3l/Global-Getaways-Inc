@@ -4,10 +4,16 @@ using System.Text;
 
 namespace GG.Core
 {
-    public interface IRemarkable:IEntity
+
+
+
+    public interface IRemarkableItem:IEntity
     {
         public string Review { get; set; }
 
         public decimal Price { get; set; }
     }
+
+
+
 }

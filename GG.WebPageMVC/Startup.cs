@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Proxies;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -55,8 +56,15 @@ namespace GG.WebPageMVC
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseLazyLoadingProxies();
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                   Configuration.GetConnectionString("DefaultConnection"));
+                
+            }
+
+               );
+           
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<PrivateUser>(options =>
@@ -108,7 +116,10 @@ namespace GG.WebPageMVC
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
-                app.AddFirstData();
+                app.AddUsers();
+                app.AddTravelsPackages();
+                app.SetLikes();
+                app.SetReviews();
             }
             else
             {
@@ -126,12 +137,14 @@ namespace GG.WebPageMVC
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+               
                
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                
+
+                endpoints.MapRazorPages();
+
             });
 
 

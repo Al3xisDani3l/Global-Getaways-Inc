@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using GG.Core;
-
+using Microsoft.EntityFrameworkCore.Proxies;
 namespace GG.Data
 {
     public class ApplicationDbContext : IdentityDbContext<PrivateUser>
@@ -16,11 +16,21 @@ namespace GG.Data
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
+        }
+
         public virtual DbSet<PrivateTravelPackage> TravelPackages { get; set; }
 
         public virtual DbSet<PrivateRating> Ratings { get; set; }
 
         public virtual DbSet<LikedPackage> LikedPackages { get; set; }
+
+        public virtual DbSet<ShoppingCart<PrivateTravelPackage>> ShoppingCarts { get; set; }
+
+        public virtual DbSet<CartItem<PrivateTravelPackage>> CartItems { get; set; }
 
 
 
@@ -35,6 +45,7 @@ namespace GG.Data
             builder.Entity<PrivateTravelPackage>().ToTable("TravelPackages");
             builder.Entity<PrivateRating>().ToTable("Ratings");
             builder.Entity<LikedPackage>().ToTable("Likeds");
+           
 
 
 

@@ -1,0 +1,105 @@
+﻿@*
+  
+sdfsdf
+*@
+
+@using Microsoft.AspNetCore.Identity
+@using GG.Core;
+@inject SignInManager<PrivateUser> SignInManager
+@inject UserManager<PrivateUser> UserManager
+@model ShoppingCart<PrivateTravelPackage>
+
+@{
+
+    ViewData["Title"] = "Chopping Cart";
+
+}
+
+
+
+  <!-- Cart Items -->
+  <div class="container-md cart">
+    <table>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Subtotal</th>
+      </tr>
+
+        @foreach(var cartItem in Model.Items)
+        {
+        <tr>
+        <td>
+          <div class="cart-info">
+            <img src="@cartItem.Item.PathingImage" alt="">
+            <div>
+              <p>@cartItem.Item.NamePackage</p>
+              <span class="price">$@cartItem.UnitPrice dlls</span>
+              <br />
+              <a href="#">Eliminar</a>
+            </div>
+          </div>
+        </td>
+        <td>
+            <button class="btnC" asp-controller="Shopping" asp-action="RemoveTravel" asp-route-idTravel="@cartItem.Item.Id" asp-route-idUser="@Model.User.Id" type="button" id="menos">-</button>
+            <input id="cantidad" type="number" style="text-align: center; font-size: medium; " value="@cartItem.Quantity">
+            <button class="btnC" asp-controller="Shopping" asp-action="AddTravel" asp-route-idTravel="@cartItem.Item.Id" asp-route-idUser="@Model.User.Id" type="button" id="mas" onclick="javascript: contadormas()">+</button>
+               
+       </td>
+        <td class="price">$@cartItem.Total dlls</td>
+      </tr>
+
+        }
+      
+      <tr>
+        <td>
+          <div class="cart-info">
+            <img src="imagenes/imagenes/china.jpeg" alt="">
+            <div>
+              <p>China Trip</p>
+              <span class="price">$1900 dlls</span>
+              <br />
+              <a href="#">Eliminar</a>
+            </div>
+          </div>
+        </td>
+        <td><input type="number" value="1" min="1"></td>
+        <td class="price">$1900 dlls</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="cart-info">
+            <img src="imagenes/imagenes/italy.jpg" alt="">
+            <div>
+              <p>Italia Trip</p>
+              <span class="price">$1560 dlls</span>
+              <br />
+              <a href="#">Eliminar</a>
+            </div>
+          </div>
+        </td>
+        <td><input type="number" value="1" min="1"></td>
+        <td class="price">$1560 dlls</td>
+      </tr>
+    </table>
+
+    <div class="total-price">
+      <table>
+        <tr>
+          <td>Subtotal</td>
+          <td>$200</td>
+        </tr>
+        <tr>
+          <td>Tax</td>
+          <td>$50</td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>$250</td>
+        </tr>
+      </table>
+      <a href="#" class="checkout btn">Checkout</a>
+
+    </div>
+
+  </div>

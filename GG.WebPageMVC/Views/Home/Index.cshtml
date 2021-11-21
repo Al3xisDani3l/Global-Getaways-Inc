@@ -1,6 +1,7 @@
 ﻿
 @using GG.Core;
 @using System.Collections.Generic;
+@using Microsoft.AspNetCore.Identity
 
 @{
     ViewData["Title"] = "Home";
@@ -9,7 +10,17 @@
 @{
     List<PrivateTravelPackage> travelPackages = (List<PrivateTravelPackage>)ViewBag.Travels;
     List<PrivateTravelPackage> swipper =  (List<PrivateTravelPackage>)ViewBag.Swipper;
+    List<PrivateRating> ratings = (List<PrivateRating>)(ViewBag.Ratings);
+    List<PrivateTravelPackage> bestPackages =  (List<PrivateTravelPackage>)ViewBag.BestPackages;
+    string idUser = ViewBag.CurrentIdUser.ToString();
 }
+
+@* Global Gaways Inc
+Autor:
+Fecha:
+ToDo:
+*@
+
 <form action="" id="search-form">
     <input type="search" placeholder="Buscar aqui..." name="" id="search-box">
     <label for="search-box" class="fas fa-search"></label>
@@ -23,9 +34,10 @@
     <div class="swiper-container home-slider">
 
         <div class="swiper-wrapper wrapper">
-
             
-        @foreach (var item in swipper)
+                  
+       
+      @foreach (var item in swipper)
        {
            <div class="swiper-slide slide">
                 <div class="content">
@@ -38,8 +50,6 @@
                 </div>
             </div>
        }
-
-
         
 
         </div>
@@ -70,20 +80,20 @@
             <div class="stars">
                     @{
                         
-                        for(int i= 0; i < (int)item.Punctuation; i++)                 
+                        for(int i= 0; i < (int)item.PunctuationAverage; i++)                 
                        {
                     
                            
                             <i class="fas fa-star"></i>
                         }
 
-                        if(item.Punctuation % 1 != 0)
+                        if(item.PunctuationAverage % 1 != 0)
                         {
       
                             <i class="fas fa-star-half-alt"></i>
                         }
 
-                        for(int j = (int)Math.Ceiling(item.Punctuation) ; j < 5; j++)
+                        for(int j = (int)Math.Ceiling(item.PunctuationAverage) ; j < 5; j++)
                         {
                             <i class="far fa-star"></i>
 
@@ -224,188 +234,55 @@
 
     <div class="box-container">
 
-        <div class="box">
+        @foreach(var package in bestPackages)
+        {
+            <div class="box">
             <div class="image">
-                <img src="imagenes/imagenes/Puerto_Vallarta.jpg" alt="">
+                <img src="@package.PathingImage" alt="">
                 <a href="#" class="fas fa-heart"></a>
             </div>
             <div class="content">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <h3>Puerto Vallarta</h3>
+              <div class="stars">
+                    @{
+                        
+                        for(int i= 0; i < (int)package.PunctuationAverage; i++)                 
+                       {
+                    
+                           
+                            <i class="fas fa-star"></i>
+                        }
+
+                        if(package.PunctuationAverage % 1 != 0)
+                        {
+      
+                            <i class="fas fa-star-half-alt"></i>
+                        }
+
+                        for(int j = (int)Math.Ceiling(package.PunctuationAverage) ; j < 5; j++)
+                        {
+                            <i class="far fa-star"></i>
+
+                        }
+                    }            
+            </div>
+                <h3>@package.NamePackage</h3>
                 <p>
-                    Este paquete incluye: Vuelo en Volaris. Alojamiento en Flamingo Vallarta Hotel & Marina. Traslado Privado.
+                    @package.Review
                 </p>
-                <a href="#" class="btn">Añadir al Carrito</a>
-                <span class="price">$250 dlls</span>
+                @if (!string.IsNullOrEmpty(idUser))
+               {
+                        <a asp-controller="Shopping" asp-action="AddTravel" asp-route-idTravel="@package.Id" asp-route-idUser="@idUser" class="btn">Añadir al Carrito</a>
+               }
+                else
+                {
+                        <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="btn">Añadir al Carrito</a>
+                }
+
+                <span class="price">$@package.Price dlls</span>
             </div>
         </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="imagenes/imagenes/niagara_falls.jpg" alt="">
-                <a href="#" class="fas fa-heart"></a>
-            </div>
-            <div class="content">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <h3>Niagara Falls</h3>
-                <p>Este paquete incluye: Vuelo directo. Alojamiento en Motel 6 Niagara Falls. Transporte incluido.</p>
-                <a href="#" class="btn">Añadir al Carrito</a>
-                <span class="price">$1300 dlls</span>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="imagenes/imagenes/rusia__1280x720.jpg" alt="">
-                <a href="#" class="fas fa-heart"></a>
-            </div>
-            <div class="content">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <h3>Rusia</h3>
-                <p>Este paquete incluye: Retro Moscow on Kurskaya. Vuelo con escalas. Tour incluido al centro de la ciudad</p>
-                <a href="#" class="btn">Añadir al Carrito</a>
-                <span class="price">$1750 dlls</span>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="imagenes/imagenes/suecia.jpg" alt="">
-                <a href="#" class="fas fa-heart"></a>
-            </div>
-            <div class="content">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <h3>Suecia</h3>
-                <p>Este paquete incluye: Vuelo con escalas. Hotel en el centro de la ciudad. Desayuno incluido.</p>
-                <a href="#" class="btn">Añadir al Carrito</a>
-                <span class="price">$1700 dlls</span>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="imagenes/imagenes/Alemania.jpg" alt="">
-                <a href="#" class="fas fa-heart"></a>
-            </div>
-            <div class="content">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <h3>Alemania</h3>
-                <p>Este paquete incluye: Vuelo redondo con escala. Hotel centrico. Transporte a las actividades.</p>
-                <a href="#" class="btn">Añadir al Carrito</a>
-                <span class="price">$1800 dlls</span>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="imagenes/imagenes/amsterdam.jpg" alt="">
-                <a href="#" class="fas fa-heart"></a>
-            </div>
-            <div class="content">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <h3>Amsterdam</h3>
-                <p>Este paquete incluye: vuelo directo. Alojamiento en hotel centrico. Transporte privado. Desayunos incluidos.</p>
-                <a href="#" class="btn">Añadir al Carrito</a>
-                <span class="price">$1650 dlls</span>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="imagenes/imagenes/china.jpeg" alt="">
-                <a href="#" class="fas fa-heart"></a>
-            </div>
-            <div class="content">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <h3>China</h3>
-                <p>Este paquete incluye: Tour personalizado. Vuelo con escala. Hotel en buena zona. Transporte</p>
-                <a href="#" class="btn">Añadir al Carrito</a>
-                <span class="price">$2500 dlls </span>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="imagenes/imagenes/francia.jpg" alt="">
-                <a href="#" class="fas fa-heart"></a>
-            </div>
-            <div class="content">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <h3>Hotel Derby Eiffe</h3>
-                <p>Este paquete incluye: Vuelo con escalas. Hotel Derby Eiffel. Transporte incluido a lugares centricos.</p>
-                <a href="#" class="btn">Añadir al Carrito</a>
-                <span class="price">$1130 Dlls</span>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="imagenes/imagenes/italy.jpg" alt="">
-                <a href="#" class="fas fa-heart"></a>
-            </div>
-            <div class="content">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <h3>Italia</h3>
-                <p>Vuelo con escalas. Hospedaje en Novotel Roma La Rustica. Transporte del aeropuerto al hotel incluido. </p>
-                <a href="#" class="btn">Añadir al Carrito</a>
-                <span class="price">$1300 Dlls</span>
-            </div>
-        </div>
-
+        }
+        
     </div>
 
 </section>
@@ -422,59 +299,45 @@
 
         <div class="swiper-wrapper">
 
-            <div class="swiper-slide slide">
+
+            @foreach(var rating in ratings){
+
+                 <div class="swiper-slide slide">
                 <i class="fas fa-quote-right"></i>
                 <div class="user">
-                    <img src="imagenes/clients/Alexis.jpg" alt="">
+                    <img src="@rating.IdUserNavigation.ProfileImg" alt="">
                     <div class="user-info">
-                        <h3>Alexis Hernández</h3>
+                        <h3>@rating.IdUserNavigation.Name @rating.IdUserNavigation.Lastname</h3>
                         <div class="stars">
+                       @{
+                        
+                        for(int i= 0; i < rating.Punctuation; i++)                 
+                       {
+                    
+                           
                             <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                        }
+
+                        if(rating.Punctuation % 1 != 0)
+                        {
+      
                             <i class="fas fa-star-half-alt"></i>
+                        }
+
+                        for(int j = rating.Punctuation ; j < 5; j++)
+                        {
+                            <i class="far fa-star"></i>
+
+                        }
+                          }
                         </div>
                     </div>
                 </div>
-                <p>Sin duda una experiencia inigualable. Recomendado ampliamente, sin duda la mejor agencia de viajes. El trato fue excelente, programaré mi próximo viaje en esta agencia.</p>
+                <p>@rating.Comment</p>
             </div>
 
-            <div class="swiper-slide slide">
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <img src="imagenes/clients/Emi.jpg" alt="">
-                    <div class="user-info">
-                        <h3>Emiliano Burrola</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>Excelente servicio, desde los vuelos hasta la estancia en el hotel. Recomiendo esta agencia, además su servicio al cliente es excelente. Todo en tiempo y forma. Gracias a todo el equipo.</p>
-            </div>
-
-            <div class="swiper-slide slide">
-                <i class="fas fa-quote-right"></i>
-                <div class="user">
-                    <img src="imagenes/clients/Fernando.jpg" alt="">
-                    <div class="user-info">
-                        <h3>Fernando Sotelo</h3>
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>Estoy totalmente satisfecho con el servicio brindado por la agencia. Las mejores recomendaciones para mis viajes. Definitivamente volveré a contratar un paquete con ellos.</p>
-            </div>
+            }
+           
 
         </div>
 

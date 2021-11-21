@@ -22,6 +22,7 @@ namespace GG.Core
         Task<ICollection<T>> GetAllAsync();
         Task<ICollection<TResult>> GetAllAsync<TResult>(Expression<Func<T, TResult>> selector);
 
+        Task<T> FindByKeyAsync(Tkey tkey);
         void DetachLocal(T entity, Tkey id);
 
 

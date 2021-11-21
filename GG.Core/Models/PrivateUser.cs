@@ -39,7 +39,14 @@ namespace GG.Core
     
         public string? Gender { get; set; }
 
-       
+        [NotMapped]
+        public string Password { get; set; }
+
+        [ForeignKey("ShoppingCart")]
+        public int ShoppingCartId { get; set; }
+
+        public virtual ShoppingCart<PrivateTravelPackage> ShoppingCart { get; set; }
+
         public virtual ICollection<LikedPackage> MyLikes { get; set; }
        
        public virtual ICollection<PrivateRating> MyRatings { get; set; }
