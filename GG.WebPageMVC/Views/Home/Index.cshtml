@@ -16,9 +16,13 @@
 }
 
 @* Global Gaways Inc
-Autor:
-Fecha:
-ToDo:
+Autor: Norma Antonio Altamirano
+Fecha: 03-11-2021
+ToDo: Pestaña para buscar palabras dentro de la página
+
+<!-- .btn -> .btnInicio -->
+
+
 *@
 
 <form action="" id="search-form">
@@ -26,9 +30,12 @@ ToDo:
     <label for="search-box" class="fas fa-search"></label>
     <i class="fas fa-times" id="close"></i>
 </form>
-<!--SEARCH SECTION ENDS-->
-<!-- HOME SECTION -->
 
+@* Global Gaways Inc
+Autor: Norma Antonio Altamirano
+Fecha: 03-11-2021
+ToDo: Muestra las imagenes como tipo carrusel, ademas de que incluye informacion de lugares turisticos en el mundo
+*@
 <section class="home" id="home">
 
     <div class="swiper-container home-slider">
@@ -61,8 +68,13 @@ ToDo:
 </section>
 
 <!-- HOME SECTION ENDS -->
-<!-- POPULAR SECTION  -->
 
+<!-- POPULAR SECTION  -->
+@* Global Gaways Inc
+Autor: Fernando Jose Sotelo Romero
+Fecha: 04-11-2021
+ToDo: Muestra los paquetes populares de la empresa
+*@
 <section class="popular" id="popular">
 
     <h3 class="sub-heading"> Nuestros Viajes </h3>
@@ -101,97 +113,22 @@ ToDo:
                     }            
             </div>
             <span>$@item.Price dlls</span>
-            <a href="#" class="btn">Añadir al Carrito</a>
+            <a href="#" class="btnInicio">Añadir al Carrito</a>
         </div>
         }
         
-       @* <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="imagenes/imagenes/Mejores-Playas-de-Cancún.jpg" alt="">
-            <h3>Cancún</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span>$800 dlls</span>
-            <a href="#" class="btn">Añadir al Carrito</a>
-        </div>
-
-        <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="imagenes/imagenes/Sydney Harbour Bridge.jpg" alt="">
-            <h3>Sydney Harbour Bridge</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span>$1200 dlls</span>
-            <a href="#" class="btn">Añadir al Carrito</a>
-        </div>
-
-        <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="imagenes/imagenes/tailandia.jpg" alt="">
-            <h3>Thailandia</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span>$2,400 dlls</span>
-            <a href="#" class="btn">Añadir al Carrito</a>
-        </div>
-
-        <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="imagenes/imagenes/noruega.jpg" alt="">
-            <h3>Noruega</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span>$2,250 dlls</span>
-            <a href="#" class="btn">Añadir al Carrito</a>
-        </div>
-
-        <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="imagenes/imagenes/Machu Picchu.jpg" alt="">
-            <h3>Machu Picchu</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span>$1250 Dlls</span>
-            <a href="#" class="btn">Añadir al Carrito</a>
-        </div>*@
+      
 
     </div>
 
 </section>
 
-<!-- POPULAR SECTION ENDS -->
-<!-- ABOUT SECTION -->
 
+@* Global Gaways Inc
+Autor: Fernando Jose Sotelo Romero
+Fecha: 04-11-20021
+ToDo: Dara una explicacion breve respecto a nuestra empresa y acerca de nosotros como trabajadores.
+*@
 <section class="about" id="about">
 
     <h3 class="sub-heading"> Acerca de Nosotros </h3>
@@ -223,10 +160,14 @@ ToDo:
     </div>
 
 </section>
-
 <!-- ABOUT SECTION ENDS -->
-<!-- PACKAGES SECTION  -->
 
+<!-- PACKAGES SECTION  -->
+@* Global Gaways Inc
+Autor: Fernando Jose Sotelo Romero
+Fecha: 04-11-2021
+ToDo: Muestra los paquetes que tenemos como empresa y los paquetes del mes
+*@
 <section class="paquetes" id="paquetes">
 
     <h3 class="sub-heading"> Nuestros Paquetes </h3>
@@ -271,11 +212,11 @@ ToDo:
                 </p>
                 @if (!string.IsNullOrEmpty(idUser))
                {
-                        <a asp-controller="Shopping" asp-action="AddTravel" asp-route-idTravel="@package.Id" asp-route-idUser="@idUser" class="btn">Añadir al Carrito</a>
+                        <a asp-controller="Shopping"  asp-action="AddTravel" asp-route-idTravel="@package.Id" asp-route-idUser="@idUser" class="btnInicio">Añadir al Carrito</a>
                }
                 else
                 {
-                        <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="btn">Añadir al Carrito</a>
+                        <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="btnInicio">Añadir al Carrito</a>
                 }
 
                 <span class="price">$@package.Price dlls</span>
@@ -288,8 +229,13 @@ ToDo:
 </section>
 
 <!-- PACKAGES SECTION ENDS -->
-<!-- REVIEW SECTION  -->
 
+<!-- REVIEW SECTION  -->
+@* Global Gaways Inc
+Autor: Norma Antonio Altamirano
+Fecha: 05-11-2021
+ToDo:Sección en la que se muestran y se agregan las reseñas de nuestros clientes
+*@
 <section class="review" id="review">
 
     <h3 class="sub-heading"> Reseñas de nuestros clientes </h3>

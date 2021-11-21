@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Text;
 using GG.Core;
 using Microsoft.EntityFrameworkCore.Proxies;
+
 namespace GG.Data
 {
+
     public class ApplicationDbContext : IdentityDbContext<PrivateUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

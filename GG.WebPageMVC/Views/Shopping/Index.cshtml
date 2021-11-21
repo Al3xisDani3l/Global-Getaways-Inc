@@ -1,6 +1,7 @@
-﻿@*
-  
-sdfsdf
+﻿@* Global Gaways Inc
+Autor: Norma Antonio Altamirano
+Fecha: 16-11-2021
+ToDo: Esta sección muestra los paquetes que el usuario a comprado y calcula el total
 *@
 
 @using Microsoft.AspNetCore.Identity
@@ -51,51 +52,22 @@ sdfsdf
 
         }
       
-      <tr>
-        <td>
-          <div class="cart-info">
-            <img src="imagenes/imagenes/china.jpeg" alt="">
-            <div>
-              <p>China Trip</p>
-              <span class="price">$1900 dlls</span>
-              <br />
-              <a href="#">Eliminar</a>
-            </div>
-          </div>
-        </td>
-        <td><input type="number" value="1" min="1"></td>
-        <td class="price">$1900 dlls</td>
-      </tr>
-      <tr>
-        <td>
-          <div class="cart-info">
-            <img src="imagenes/imagenes/italy.jpg" alt="">
-            <div>
-              <p>Italia Trip</p>
-              <span class="price">$1560 dlls</span>
-              <br />
-              <a href="#">Eliminar</a>
-            </div>
-          </div>
-        </td>
-        <td><input type="number" value="1" min="1"></td>
-        <td class="price">$1560 dlls</td>
-      </tr>
+     
     </table>
 
     <div class="total-price">
       <table>
         <tr>
           <td>Subtotal</td>
-          <td>$200</td>
+          <td>$@Model.Subtotal</td>
         </tr>
         <tr>
           <td>Tax</td>
-          <td>$50</td>
+          <td>$@Model.Subtotal * .16</td>
         </tr>
         <tr>
           <td>Total</td>
-          <td>$250</td>
+          <td>$@(Model.Subtotal + Model.Subtotal*16)</td>
         </tr>
       </table>
       <a href="#" class="checkout btn">Checkout</a>

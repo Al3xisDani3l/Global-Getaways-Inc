@@ -42,6 +42,7 @@ namespace GG.WebPageMVC.Controllers
             _userManager = userManager;
         }
 
+
         public async Task<IActionResult> Index()
         {
 
