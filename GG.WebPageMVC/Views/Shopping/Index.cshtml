@@ -29,7 +29,7 @@ ToDo: Esta sección muestra los paquetes que el usuario a comprado y calcula el 
 
         @foreach(var cartItem in Model.Items)
         {
-        <tr>
+        <tr id="@string.Concat("cartItem",cartItem.Id)" >
         <td>
           <div class="cart-info">
             <img src="@cartItem.Item.PathingImage" alt="">
@@ -37,14 +37,14 @@ ToDo: Esta sección muestra los paquetes que el usuario a comprado y calcula el 
               <p>@cartItem.Item.NamePackage</p>
               <span class="price">$@cartItem.UnitPrice dlls</span>
               <br />
-              <a href="#">Eliminar</a>
+              <a onclick="UpdateDelete('@cartItem.Id',@cartItem.Item.Id,'@cartItem.ShoppingCart.User.Id')">Eliminar</a>
             </div>
           </div>
         </td>
         <td>
-            <button class="btnC" asp-controller="Shopping" asp-action="RemoveTravel" asp-route-idTravel="@cartItem.Item.Id" asp-route-idUser="@Model.User.Id" type="button" id="menos">-</button>
-            <input id="cantidad" type="number" style="text-align: center; font-size: medium; " value="@cartItem.Quantity">
-            <button class="btnC" asp-controller="Shopping" asp-action="AddTravel" asp-route-idTravel="@cartItem.Item.Id" asp-route-idUser="@Model.User.Id" type="button" id="mas" onclick="javascript: contadormas()">+</button>
+            <button class="btnC" onclick="UpdateDown('@cartItem.Id',@cartItem.Item.Id,'@cartItem.ShoppingCart.User.Id')" type="button" id="menos">-</button>
+            <input id="@string.Concat("contador",cartItem.Id)" type="number" style="text-align: center; font-size: medium; " value="@cartItem.Quantity">
+            <button class="btnC" onclick="UpdateUp('@cartItem.Id',@cartItem.Item.Id,'@cartItem.ShoppingCart.User.Id')" type="button" id="mas" >+</button>
                
        </td>
         <td class="price">$@cartItem.Total dlls</td>
@@ -63,11 +63,11 @@ ToDo: Esta sección muestra los paquetes que el usuario a comprado y calcula el 
         </tr>
         <tr>
           <td>Tax</td>
-          <td>$@Model.Subtotal * .16</td>
+          <td>$@( Model.Subtotal * (decimal).16)</td>
         </tr>
         <tr>
           <td>Total</td>
-          <td>$@(Model.Subtotal + Model.Subtotal*16)</td>
+          <td>$@(Model.Subtotal + Model.Subtotal* (decimal)16)</td>
         </tr>
       </table>
       <a href="#" class="checkout btn">Checkout</a>

@@ -7,7 +7,7 @@ using GG.Core;
 using GG.Data;
 namespace GG.Infrastructure
 {
-    public class RecommenderContext : IRecommender
+    public class RecommenderContext 
     {
 
         private readonly ApplicationDbContext _dbContext;
@@ -20,7 +20,7 @@ namespace GG.Infrastructure
         public Task<IList<IRemarkableItem>> GetBestItems(string key)
         {
 
-          
+
 
             throw new NotImplementedException();
         }

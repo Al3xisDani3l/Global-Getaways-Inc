@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using GG.Core;
+@using System.Security.Claims
+@inject SignInManager<PrivateUser> SignInManager
+@inject UserManager<PrivateUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User)){
+
+     <div class="icons">
+            <i class="fas fa-bars" id="menu-bars"></i>
+            <i class="fas fa-search" id="search-icon"></i>
+            <a asp-controller="Likes" asp-action="Index" class="fas fa-heart"></a>
+            <a asp-controller="Shopping" asp-action="Index" class="fas fa-shopping-cart"></a>
+      </div>
+}
+else
+{
+     <div class="icons">
+            <i class="fas fa-bars" id="menu-bars"></i>
+            <i class="fas fa-search" id="search-icon"></i>
+            <a asp-area="Identity" asp-page="/Account/Account" asp-route-returnUrl="./Likes" class="fas fa-heart"></a>
+            <a asp-area="Identity" asp-page="/Account/Account" asp-route-returnUrl="./Shopping" class="fas fa-shopping-cart"></a>
+      </div>
+
+}

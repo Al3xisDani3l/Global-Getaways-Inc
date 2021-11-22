@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GG.WebPageMVC
 {
-    public static class StartupExtencions
+    public static class Extencions
     {
 
        
@@ -289,6 +289,31 @@ namespace GG.WebPageMVC
             return app;
 
         }
+
+        public static IApplicationBuilder TrainModelFirs(this IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var _recommender = serviceScope.ServiceProvider.GetService<RecommenderSystem>();
+                 _recommender.TrainModelAsync();
+            }
+
+            return app;
+
+        }
+        public static ICollection<PrivateTravelPackage> RatingPrediction(this ICollection<PrivateTravelPackage> travelPackages, string userId)
+        {
+            foreach (var item in travelPackages)
+            {
+                item.RatingPrediction = GGMLModel.Predict(userId, item).Score;
+            }
+
+            return travelPackages.OrderByDescending(p => p.RatingPrediction).ToList();
+
+        }
+
+
+
     }
 }
 

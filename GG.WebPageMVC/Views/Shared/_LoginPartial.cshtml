@@ -1,25 +1,53 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using GG.Core;
+@using System.Security.Claims
 @inject SignInManager<PrivateUser> SignInManager
 @inject UserManager<PrivateUser> UserManager
 
-<ul class="navbar-nav">
+
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
+
+
+ 
+      PrivateUser currentUser = await UserManager.FindByIdAsync((User as ClaimsPrincipal).FindFirst(ClaimTypes.NameIdentifier).Value); 
+
+      <div class="action">
+        <div class="profile" onclick="menuToggle();">
+            <img src="@currentUser.ProfileImg" alt="">
+        </div>
+        <div class="menu">
+            
+            @if(!string.IsNullOrEmpty(currentUser.Gender))
+            {
+                if(currentUser.Gender == "Male")
+                {
+                     <h3>@currentUser.Name <br> <span>Bienvenido!</span> </h3>
+                }
+                else
+                {
+                     <h3>@currentUser.Name <br> <span>Bienvenida!</span> </h3>
+                }
+            }
+            else{
+                <h3>@currentUser.Name <br> <span>Bienvenido</span> </h3>
+            }
+            
+            <ul>
+                <li><img src="~/imagenes/perfildeusuario/user.png" ><a href="#">Mi Perfil</a></li>
+                <li><img src="~/imagenes/perfildeusuario/edit.png" ><a href="#">Editar Perfil</a></li>
+                <li><img src="~/imagenes/perfildeusuario/comprar.png" ><a href="#">Paquetes comprados</a></li>
+                <li><img src="~/imagenes/perfildeusuario/settings.png" ><a asp-area="Identity" asp-page="/Account/Manage/Index">Ajustes</a></li><li><img src="imagenes/perfildeusuario/question.png" ><a href="#">Ayuda</a></li>
+                <li><img src="~/imagenes/perfildeusuario/log-out.png" ><a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" >Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+  
 }
 else
 {
     
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Account">Login</a>
-    </li>
+    <a class="btnlogin" asp-area="Identity" asp-page="/Account/Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Login</a>
 }
-</ul>

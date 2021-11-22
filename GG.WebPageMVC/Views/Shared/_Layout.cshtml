@@ -17,6 +17,7 @@
     <link href="~/css/site.css" rel="stylesheet"/>
     <link href="~/custom/Ojo.css" rel="stylesheet"/>
     <link href="~/custom/style.css" rel="stylesheet" />
+    <link href="~/custom/ProfileLogin.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="~/custom/shop.css" rel="stylesheet"/>
 
@@ -35,25 +36,20 @@
             <a href="#about">Acerca de Nosotros</a>
             <a href="#paquetes">Paquetes</a>
             <a href="#review">Review</a>
-            <a asp-area="Identity" asp-page="/Account/Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Login</a>
+            
         </nav>
 
-        <div class="icons">
-            <i class="fas fa-bars" id="menu-bars"></i>
-            <i class="fas fa-search" id="search-icon"></i>
-            <a asp-controller="Likes" asp-action="Index" class="fas fa-heart"></a>
-            <a asp-controller="Shopping" asp-action="Index" class="fas fa-shopping-cart"></a>
-        </div>
+        @await Html.PartialAsync("_SectionPartial")
         @await Html.PartialAsync("_LoginPartial")
         @*<partial name="_LoginPartial/>*@
 
     </header>
     
 
-    <div class="content">
-        <main role="main">
+    <div class="conteiner body-content">
+        
              @RenderBody()
-        </main>
+        <hr/>
         
     </div>
          
@@ -105,8 +101,14 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <!-- custom js file link  -->
-
+      <script>
+        function menuToggle(){
+            const toggleMenu=document.querySelector('.menu');
+            toggleMenu.classList.toggle('active')
+        }
+    </script>
     <script src="~/custom/script.js"></script>
+    <script src="~/js/PostFunctions.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

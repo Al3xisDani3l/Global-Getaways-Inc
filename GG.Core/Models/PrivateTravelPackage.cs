@@ -58,6 +58,9 @@ namespace GG.Core
             }
         }
 
+        [NotMapped]
+        public float RatingPrediction { get; set; }
+
 
         public virtual ICollection<PrivateRating> Ratings { get; set; }
 

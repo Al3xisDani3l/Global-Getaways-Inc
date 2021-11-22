@@ -36,6 +36,16 @@ namespace GG.WebPageMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                 builder
+                 .AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader());
+            });
+
+
             services.Configure<GG.Infrastructure.Options.PasswordOptions>(conf => Configuration.GetSection("PasswordOptions").Bind(conf));
 
             services.AddScoped(typeof(IRepository<,>), typeof(RepositoryBase<,>));
@@ -44,6 +54,8 @@ namespace GG.WebPageMVC
 
             //Añadimos el servicio de mensajeria
             services.AddTransient<IEmailSender, EmailSender>();
+
+           
 
 
             services.AddAutoMapper(auto =>
@@ -60,9 +72,8 @@ namespace GG.WebPageMVC
                 options.UseLazyLoadingProxies();
                 options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection"));
-                
-            }
 
+            }
                );
            
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -77,7 +88,13 @@ namespace GG.WebPageMVC
                
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //inyectamos una instancia que del recomendador
+            services.AddTransient(typeof(IRecommender), typeof(RecommenderSystem));
+
             services.AddControllersWithViews();
+
+            services.AddControllers();
 
             //agregamos los logins externos de la app
             services.AddAuthentication()
@@ -132,8 +149,11 @@ namespace GG.WebPageMVC
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -145,10 +165,13 @@ namespace GG.WebPageMVC
 
                 endpoints.MapRazorPages();
 
+                endpoints.MapControllers();
+
             });
-
-
            
+
+
+
 
 
         }

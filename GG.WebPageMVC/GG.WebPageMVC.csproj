@@ -1,39 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TypeScriptNoEmitOnError>False</TypeScriptNoEmitOnError>
   </PropertyGroup>
-
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TypeScriptNoEmitOnError>False</TypeScriptNoEmitOnError>
   </PropertyGroup>
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>aspnet-GG.WebPageMVC-10D4AEDE-1B1E-4C99-8178-D8D9B76EA35A</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>False</Optimize>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>True</Optimize>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Remove="wwwroot\js\script.js" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="ExternalSource\log in\.vscode\settings.json" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Areas\Identity\Pages\Account\Account.cshtml" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="CsvHelper" Version="27.1.1" />
@@ -54,18 +45,18 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.ML" Version="1.7.0" />
+    <PackageReference Include="Microsoft.ML.Recommender" Version="0.18.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc" Version="6.0.0" />
     <PackageReference Include="SendGrid" Version="9.24.4" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\GG.Core\GG.Core.csproj" />
     <ProjectReference Include="..\GG.Database\GG.Data.csproj" />
     <ProjectReference Include="..\GG.Infrastructure\GG.Infrastructure.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="wwwroot\imagenes\espana.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -90,14 +81,15 @@
     <None Include="wwwroot\redes sociales\instagram.svg" />
     <None Include="wwwroot\redes sociales\linkedin.svg" />
     <None Include="wwwroot\redes sociales\twitter.svg" />
+    <None Include="wwwroot\RS\GGMLModelTrainer.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-
   <ItemGroup>
     <Resource Include="wwwroot\custom\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-
   <ItemGroup>
     <Content Update="wwwroot\Csv\TravelPackages.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -111,6 +103,9 @@
     <Content Update="wwwroot\custom\script.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\custom\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\js\site.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -121,5 +116,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
 </Project>

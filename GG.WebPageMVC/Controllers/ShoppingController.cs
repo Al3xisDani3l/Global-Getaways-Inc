@@ -13,6 +13,7 @@ using System.Security.Claims;
 
 namespace GG.WebPageMVC.Controllers
 {
+    [Route("[controller]")]
     public class ShoppingController : Controller
     {
 
@@ -34,8 +35,7 @@ namespace GG.WebPageMVC.Controllers
 
             try
             {
-                if (_signInManager.IsSignedIn(User))
-                {
+               
 
                     var iduser = (User as ClaimsPrincipal).FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -60,14 +60,14 @@ namespace GG.WebPageMVC.Controllers
 
                     return View(realUser.ShoppingCart);
 
-                }
+                
 
-                return RedirectToPage("./Login", new { ReturnUrl = "./Shopping" });
+              
 
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"\'{0}\' class on function \'{1}\' ", new[] { nameof(ShoppingController), nameof(Index) });
+                _logger.LogError(ex, "\'{0}\' class on function \'{1}\' ", new[] { nameof(ShoppingController), nameof(Index) });
                 return Redirect("./Error");
             }
          
@@ -75,17 +75,18 @@ namespace GG.WebPageMVC.Controllers
             
         }
 
-        public async Task AddTravel(int idTravel, string idUser)
+        [HttpPost("addTravel")]
+        public async Task<IActionResult> AddTravel([FromForm] int packageId, [FromForm] string userId)
         {
 
 
 
-             var user = await _dbContex.Users.Include(u => u.ShoppingCart.Items).FirstOrDefaultAsync(u => u.Id == idUser);
-             var travel = await _dbContex.TravelPackages.FirstOrDefaultAsync(t => t.Id == idTravel);
+             var user = await _dbContex.Users.Include(u => u.ShoppingCart.Items).FirstOrDefaultAsync(u => u.Id == userId);
+             var travel = await _dbContex.TravelPackages.FirstOrDefaultAsync(t => t.Id == packageId);
 
             if (user is null && travel is not null)
             {
-                return;
+                return NotFound();
             }
 
             if (user.ShoppingCart is null)
@@ -100,13 +101,15 @@ namespace GG.WebPageMVC.Controllers
 
 
                 await _dbContex.SaveChangesAsync();
+                return Ok();
 
             }
             catch (Exception ex)
             {
 
                 _logger.LogError(ex,$"\'{0}\' class on function \'{1}\' ", new[] {nameof(ShoppingController),nameof(AddTravel)});
-                
+                return Redirect("./Error");
+
             }
 
             //var cartForUser =   _dbContex.ShoppingCarts.FirstOrDefault(s => s.IdUser == idUser);
@@ -122,8 +125,40 @@ namespace GG.WebPageMVC.Controllers
 
         }
 
-        public async Task RemoveTravel(int idTravel, string idUser)
+        [HttpPost("removeTravel")]
+        public async Task<IActionResult> RemoveTravel([FromForm] int packageId, [FromForm] string userId)
         {
+
+
+            var user = await _dbContex.Users.Include(u => u.ShoppingCart.Items).FirstOrDefaultAsync(u => u.Id == userId);
+            var travel = await _dbContex.TravelPackages.FirstOrDefaultAsync(t => t.Id == packageId);
+
+            if (user is null && travel is not null)
+            {
+                return NotFound();
+            }
+
+            if (user.ShoppingCart is null)
+            {
+                user.ShoppingCart = new ShoppingCart<PrivateTravelPackage>();
+            }
+
+            user.ShoppingCart.Remove(travel);
+
+            try
+            {
+
+
+                await _dbContex.SaveChangesAsync();
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, $"\'{0}\' class on function \'{1}\' ", new[] { nameof(ShoppingController), nameof(AddTravel) });
+                return Redirect("./Error");
+            }
 
             //var user = await _users.FindAsync(u => u.Id == idUser);
             //var travel = await _travels.FindAsync(t => t.Id == idTravel);
@@ -146,25 +181,40 @@ namespace GG.WebPageMVC.Controllers
 
         }
 
-        public async Task RemoveAllTravels(int idTravel, string idUser)
+        [HttpPost("removeAllTravel")]
+        public async Task<IActionResult> RemoveAllTravels([FromForm] int packageId, [FromForm] string userId)
         {
 
-        //    var user = await _users.FindAsync(u => u.Id == idUser);
-        //    var travel = await _travels.FindAsync(t => t.Id == idTravel);
 
-        //    if (user is null && travel is not null)
-        //    {
-        //        return;
-        //    }
+            var user = await _dbContex.Users.Include(u => u.ShoppingCart.Items).FirstOrDefaultAsync(u => u.Id == userId);
+            var travel = await _dbContex.TravelPackages.FirstOrDefaultAsync(t => t.Id == packageId);
 
-        //    var cartForUser = shoppingCarts.FirstOrDefault(s => s.IdUser == idUser);
-        //    if (cartForUser is null)
-        //    {
-        //        cartForUser = new ShoppingCart(idUser);
+            if (user is null && travel is not null)
+            {
+                return NotFound();
+            }
 
-        //        shoppingCarts.Add(cartForUser);
-        //    }
-        //    cartForUser.RemoveAll(travel);
+            if (user.ShoppingCart is null)
+            {
+                user.ShoppingCart = new ShoppingCart<PrivateTravelPackage>();
+            }
+
+            user.ShoppingCart.RemoveAll(travel);
+
+            try
+            {
+
+
+                await _dbContex.SaveChangesAsync();
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, $"\'{0}\' class on function \'{1}\' ", new[] { nameof(ShoppingController), nameof(AddTravel) });
+                return Redirect("./Error");
+            }
         }
 
 

@@ -5,12 +5,16 @@ using System.Threading.Tasks;
 
 namespace GG.Core
 {
-    public interface IRecommender<Tkey> where Tkey: IEquatable<Tkey>
+    public interface IRecommender<Tkey,TItem> where Tkey: IEquatable<Tkey> where TItem: IRemarkableItem
     {
 
-        public Task<IList<IRemarkableItem>> GetBestItems(Tkey key);
+        public ICollection<TItem> PredictForUser(Tkey userId);
 
-        public Task<double> TrainModel();
+        public ModelOutput Predict(TItem input, Tkey userId);
+
+        public ICollection<TItem> Predict(ICollection<TItem> travelPackages, Tkey userId);
+
+        public Task TrainModelAsync();
 
         
 
@@ -18,7 +22,7 @@ namespace GG.Core
     }
 
 
-    public interface IRecommender: IRecommender<string>
+    public interface IRecommender: IRecommender<string,PrivateTravelPackage>
     {
 
     }

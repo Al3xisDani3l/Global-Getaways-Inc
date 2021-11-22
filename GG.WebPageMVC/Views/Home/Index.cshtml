@@ -8,10 +8,10 @@
 }
 
 @{
-    List<PrivateTravelPackage> travelPackages = (List<PrivateTravelPackage>)ViewBag.Travels;
+    List<PrivateTravelPackage> travels = (List<PrivateTravelPackage>)ViewBag.Travels;
     List<PrivateTravelPackage> swipper =  (List<PrivateTravelPackage>)ViewBag.Swipper;
     List<PrivateRating> ratings = (List<PrivateRating>)(ViewBag.Ratings);
-    List<PrivateTravelPackage> bestPackages =  (List<PrivateTravelPackage>)ViewBag.BestPackages;
+    List<PrivateTravelPackage> bestPackagesForUser =  (List<PrivateTravelPackage>)ViewBag.BestPackagesForUser;
     string idUser = ViewBag.CurrentIdUser.ToString();
 }
 
@@ -78,14 +78,28 @@ ToDo: Muestra los paquetes populares de la empresa
 <section class="popular" id="popular">
 
     <h3 class="sub-heading"> Nuestros Viajes </h3>
-    <h1 class="heading"> Lo Más Popular </h1>
+    @if(!string.IsNullOrEmpty(idUser)){
+
+         <h1 class="heading"> Recomendados para ti </h1>
+    }
+    else
+    {
+        <h1 class="heading"> Lo Más Popular </h1>
+    }
+   
 
     <div class="box-container">
        
-        @foreach(var item in travelPackages)
+        @foreach(var item in bestPackagesForUser)
         {
-             <div class="box">
-            <a href="#" class="fas fa-heart"></a>
+            <div class="box">
+                @if (!string.IsNullOrEmpty(idUser))
+                {
+                    <a onclick="Like(@item.Id,'@idUser')" class="fas fa-heart"></a>
+                }                else
+                {
+                     <a  asp-area="Identity" asp-page="/Account/Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="fas fa-heart"></a>
+                }
             <a href="#" class="fas fa-eye"></a>
             <img src="@item.PathingImage" alt="">
             <h3>@item.NamePackage</h3>
@@ -113,7 +127,15 @@ ToDo: Muestra los paquetes populares de la empresa
                     }            
             </div>
             <span>$@item.Price dlls</span>
-            <a href="#" class="btnInicio">Añadir al Carrito</a>
+             @if(!string.IsNullOrEmpty(idUser))
+                {
+                     <a onclick="AddTravel(@item.Id,'@idUser')" class="btnInicio">Añadir al Carrito</a>
+                }
+                else
+                {
+                     <a  asp-area="Identity" asp-page="/Account/Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="btnInicio">Añadir al Carrito</a>
+                }
+               
         </div>
         }
         
@@ -171,16 +193,24 @@ ToDo: Muestra los paquetes que tenemos como empresa y los paquetes del mes
 <section class="paquetes" id="paquetes">
 
     <h3 class="sub-heading"> Nuestros Paquetes </h3>
-    <h1 class="heading"> Paquetes del mes </h1>
+    <h1 class="heading"> Paquetes mas gustados </h1>
 
     <div class="box-container">
 
-        @foreach(var package in bestPackages)
+        @foreach(var package in travels)
         {
             <div class="box">
             <div class="image">
                 <img src="@package.PathingImage" alt="">
-                <a href="#" class="fas fa-heart"></a>
+                 @if (!string.IsNullOrEmpty(idUser))
+                    {
+                        <a onclick="Like(@package.Id,'@idUser')" class="fas fa-heart"></a>
+                    }
+                    else
+                    {
+                        <a  asp-area="Identity" asp-page="/Account/Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="fas fa-heart"></a>
+                    }
+                    
             </div>
             <div class="content">
               <div class="stars">
@@ -212,11 +242,11 @@ ToDo: Muestra los paquetes que tenemos como empresa y los paquetes del mes
                 </p>
                 @if (!string.IsNullOrEmpty(idUser))
                {
-                        <a asp-controller="Shopping"  asp-action="AddTravel" asp-route-idTravel="@package.Id" asp-route-idUser="@idUser" class="btnInicio">Añadir al Carrito</a>
+                        <a onclick="AddTravel(@package.Id,'@idUser')"  class="btnInicio">Añadir al Carrito</a>
                }
                 else
                 {
-                        <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="btnInicio">Añadir al Carrito</a>
+                        <a  asp-area="Identity" asp-page="/Account/Account" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="btnInicio">Añadir al Carrito</a>
                 }
 
                 <span class="price">$@package.Price dlls</span>

@@ -1,6 +1,10 @@
 ﻿
+@using GG.Core;
+
 @{
     ViewData["Title"] = "Likes";
+
+    List<LikedPackage> myLikes = ViewBag.MyLikes as List<LikedPackage>;
 }
 @* Global Gaways Inc
 Autor: Fernando Jose Sotelo Romero
@@ -11,10 +15,14 @@ ToDo: Muestra los paquetes/viajes favoritos del usuario.
         <h1 class="heading"> Tu carrito</h1>
     
         <div class="box-container">
-            <div class="box">
-                <img src="/imagenes/imagenes/mazatlan.jpg" alt="">
-                <h3>Mazatlán</h3>
-                <span>$650 dlls</span>
+
+        @foreach(var liked in myLikes)
+        {
+            
+                <div class="box">
+                <img src="@liked.IdTravelPackageNavigation.PathingImage" alt="">
+                <h3>@liked.IdTravelPackageNavigation.NamePackage</h3>
+                <span>$@liked.IdTravelPackageNavigation.Price dlls</span>
                 <div class="rowC">
                     <div class="col-6">
                         <button class="btnFav">
@@ -28,98 +36,10 @@ ToDo: Muestra los paquetes/viajes favoritos del usuario.
                     </div>
                 </div>
             </div>
-            <div class="box">
-                <img src="/imagenes/imagenes/Mejores-Playas-de-Cancún.jpg" alt="">
-                <h3>Cancún</h3>
-                <span>$800 dlls</span>
-                <div class="rowC">
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Quitar de favoritos
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Agregar a carrito
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="box">
-                <img src="/imagenes/imagenes/Sydney Harbour Bridge.jpg" alt="">
-                <h3>Sydney Harbour</h3>
-                <span>$1200 dlls</span>
-                <div class="rowC">
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Quitar de favoritos
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Agregar a carrito
-                        </button>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <img src="/imagenes/imagenes/tailandia.jpg" alt="">
-                <h3>Thailandia</h3>
-                
-                <span>$2,400 dlls</span>
-                <div class="rowC">
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Quitar de favoritos
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Agregar a carrito
-                        </button>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <img src="/imagenes/imagenes/noruega.jpg" alt="">
-                <h3>Noruega</h3>
-                
-                <span>$2,250 dlls</span>
-                <div class="rowC">
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Quitar de favoritos
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Agregar a carrito
-                        </button>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <img src="/imagenes/imagenes/Machu Picchu.jpg" alt="">
-                <h3>Machu Picchu</h3>
-                
-                <span>$1250 Dlls</span>
-                <div class="rowC">
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Quitar de favoritos
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button class="btnFav">
-                            Agregar a carrito
-                        </button>
-                    </div>
-                </div>
-            </div>
-    
+
+        }
+
+           
         </div>
     
     </section>

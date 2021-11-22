@@ -31,7 +31,9 @@ namespace GG.WebPageMVC.Controllers
 
         private readonly IMapper _mapper;
 
-        public HomeController(ApplicationDbContext dbContext,IRepository<PrivateTravelPackage,int> repository, IRepository<PrivateRating, int> ratings, ILogger<HomeController> logger,IMapper mapper, SignInManager<PrivateUser> signInManager, UserManager<PrivateUser> userManager)
+        private readonly IRecommender _recommender;
+
+        public HomeController(ApplicationDbContext dbContext,IRepository<PrivateTravelPackage,int> repository, IRepository<PrivateRating, int> ratings, ILogger<HomeController> logger,IMapper mapper, SignInManager<PrivateUser> signInManager, UserManager<PrivateUser> userManager, IRecommender recommender)
         {
             _mapper = mapper;   
             _repository = repository;
@@ -40,6 +42,7 @@ namespace GG.WebPageMVC.Controllers
             _dbContext = dbContext;
             _signInManager = signInManager;
             _userManager = userManager;
+            _recommender = recommender;
         }
 
 
@@ -50,20 +53,42 @@ namespace GG.WebPageMVC.Controllers
             //Datos de prueba
 
 
-
+            //obtenemos los paquetes de la base de datos;
             List<PrivateTravelPackage> packages = _dbContext.TravelPackages.Include(t => t.Ratings).ToList();
 
          
-            ViewBag.Swipper = packages.Take(5).ToList();
+            //agregamos los paquetes del swipper
+            ViewBag.Swipper = packages.Take(6).ToList();
 
-
+            
+            //Los paquetes con mas me gusta del mes
             ViewBag.Travels = packages.OrderByDescending(t => t.PunctuationAverage).Take(20).ToList();
 
+            //Los reviews de los usuarios
             ViewBag.Ratings = _dbContext.Ratings.Include(u => u.IdUserNavigation).OrderBy(u => u.PostingDate).Take(20).ToList();
-            ViewBag.BestPackages = packages.OrderByDescending(t => t.PunctuationAverage).Take(10).ToList();
-            ViewBag.CurrentIdUser = (User as ClaimsPrincipal).FindFirst(ClaimTypes.NameIdentifier).Value;
+          
+            //obtenemos el usuario logeado si lo hay
+            var claimUser = (User as ClaimsPrincipal);
+
+            string userId = claimUser.FindFirst(ClaimTypes.NameIdentifier) is not null ? claimUser.FindFirst(ClaimTypes.NameIdentifier).Value : "";
+
+            ViewBag.CurrentIdUser = userId;
+
+            if (!String.IsNullOrEmpty(userId))
+            {
+                //Paquetes sacados del recomender sistem para el usuario actual
+                ViewBag.BestPackagesForUser = _recommender.PredictForUser(userId).ToList();
+            }
+            else
+            {
+                //paquetes genericos en dado caso que no haya usuario logeado
+                ViewBag.BestPackagesForUser = packages.OrderByDescending(t => t.PunctuationAverage).Take(10).ToList();
+            }
+           
+
             return View();
         }
+
 
         public IActionResult Privacy()
         {
@@ -77,12 +102,6 @@ namespace GG.WebPageMVC.Controllers
         }
 
 
-        public async Task<IActionResult> LikedItem(int id)
-        {
-
-
-            return NotFound();
-
-        }
+      
     }
 }
