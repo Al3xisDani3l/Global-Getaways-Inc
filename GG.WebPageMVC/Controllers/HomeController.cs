@@ -84,8 +84,8 @@ namespace GG.WebPageMVC.Controllers
                 //paquetes genericos en dado caso que no haya usuario logeado
                 ViewBag.BestPackagesForUser = packages.OrderByDescending(t => t.PunctuationAverage).Take(10).ToList();
             }
-           
 
+          
             return View();
         }
 

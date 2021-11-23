@@ -1,10 +1,19 @@
-﻿using Microsoft.ML.Data;
+﻿/*
+Nombre: Daniel Emiliano Burrola Avalos
+Fecha: 16/11/2021
+Funcionalidad: Se implementara la entrada del modelo de Rating
+*/
+
+using Microsoft.ML.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GG.Core
 {
+    /// <summary>
+    /// Entrada del modelo de Rating con los datos de puntuacion, comentarios, Usuario, etc.
+    /// </summary>
      public class RatingModelImput
     {
 

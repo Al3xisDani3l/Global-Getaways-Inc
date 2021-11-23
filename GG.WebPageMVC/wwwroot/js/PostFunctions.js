@@ -116,27 +116,37 @@ function RemoveAllTravel(packageId, userId) {
 
 function UpdateDown(cartId, packageId, userId) {
 
-    var contador = document.getElementById("contador"+cartId);
+    let contador = document.getElementById("contador" + cartId);
+    let i = contador.value;
 
     if (parseInt(contador.value) - 1 == 0) {
         RemoveAllTravel(packageId, userId);
-        var carItem = document.getElementById("carItem" + cartId);
-        carItem.style.display = 'none';
+        let id = "cartItem" + cartId;
+
+        var carItem = document.getElementById(id);
+        carItem.parentNode.removeChild(id);
     }
     else {
         RemoveTravel(packageId, userId);
-        contador.value = parserInt(contador.value) - 1;
+        let c = contador.value - 1;
+        let p = parseInt(contador.value,10) - 1;
+        contador.value = p;
     }
 
 }
 
+
 function UpdateUp(cartId,packageId, userId) {
 
-    var contador = document.getElementById("contador" + cartId);
+     let contador = document.getElementById("contador" + cartId);
 
+
+     let i = contador.value;
     
-        AddTravel(packageId, userId);
-     contador.value = parserInt(contador.value) + 1;
+    AddTravel(packageId, userId);
+    let c = contador.value + 1;
+    let p = parseInt(contador.value,10) + 1;
+    contador.value = p;
 
     
 
@@ -145,8 +155,11 @@ function UpdateUp(cartId,packageId, userId) {
 function UpdateDelete(cartId, packageId, userId) {
 
     RemoveAllTravel(packageId, userId);
-    var carItem = document.getElementById("carItem" + cartId);
-    carItem.style.display = 'none';
+    let id = "cartItem" + cartId;
+  
+    var carItem = document.getElementById(id);
+    carItem.parentNode.removeChild(id);
+   
 
 
 

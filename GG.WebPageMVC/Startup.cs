@@ -89,7 +89,7 @@ namespace GG.WebPageMVC
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //inyectamos una instancia que del recomendador
+            //inyectamos una instancia del recomender system
             services.AddTransient(typeof(IRecommender), typeof(RecommenderSystem));
 
             services.AddControllersWithViews();
@@ -129,14 +129,17 @@ namespace GG.WebPageMVC
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseDeveloperExceptionPage();
+            app.UseMigrationsEndPoint();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
-                app.AddUsers();
-                app.AddTravelsPackages();
-                app.SetLikes();
-                app.SetReviews();
+                // app.UseDeveloperExceptionPage();
+                // app.UseMigrationsEndPoint();
+                //app.AddUsers();
+                //app.AddTravelsPackages();
+                //app.SetLikes();
+                //app.SetReviews();
+                //app.TrainModelFirs();
             }
             else
             {

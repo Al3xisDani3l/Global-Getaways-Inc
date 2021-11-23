@@ -20,7 +20,7 @@ ToDo: Esta sección muestra los paquetes que el usuario a comprado y calcula el 
 
   <!-- Cart Items -->
   <div class="container-md cart">
-    <table>
+    <table id="tablaProduct">
       <tr>
         <th>Producto</th>
         <th>Cantidad</th>
@@ -37,13 +37,13 @@ ToDo: Esta sección muestra los paquetes que el usuario a comprado y calcula el 
               <p>@cartItem.Item.NamePackage</p>
               <span class="price">$@cartItem.UnitPrice dlls</span>
               <br />
-              <a onclick="UpdateDelete('@cartItem.Id',@cartItem.Item.Id,'@cartItem.ShoppingCart.User.Id')">Eliminar</a>
+              <a href="#" onclick="UpdateDelete('@cartItem.Id',@cartItem.Item.Id,'@cartItem.ShoppingCart.User.Id')">Eliminar</a>
             </div>
           </div>
         </td>
         <td>
             <button class="btnC" onclick="UpdateDown('@cartItem.Id',@cartItem.Item.Id,'@cartItem.ShoppingCart.User.Id')" type="button" id="menos">-</button>
-            <input id="@string.Concat("contador",cartItem.Id)" type="number" style="text-align: center; font-size: medium; " value="@cartItem.Quantity">
+            <input id="@string.Concat("contador",cartItem.Id)" type="text" style="text-align: center; font-size: medium; " value="@cartItem.Quantity">
             <button class="btnC" onclick="UpdateUp('@cartItem.Id',@cartItem.Item.Id,'@cartItem.ShoppingCart.User.Id')" type="button" id="mas" >+</button>
                
        </td>

@@ -294,7 +294,7 @@ namespace GG.WebPageMVC
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var _recommender = serviceScope.ServiceProvider.GetService<RecommenderSystem>();
+                var _recommender = serviceScope.ServiceProvider.GetService<IRecommender>();
                  _recommender.TrainModelAsync();
             }
 
